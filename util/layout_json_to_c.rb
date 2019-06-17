@@ -74,11 +74,7 @@ layouts = content[/"layers":\[\[((".*?")+)\]\]/, 1]
   end
 
 printable_layouts = layouts.map do |((left_sizes, left_hand), (right_sizes, right_hand))|
-  %[(\n#{
-    printable_hand(left_hand, left_sizes)
-  },\n#{
-    printable_hand(right_hand, right_sizes)
-  }\n)]
+  %[(\n  // left hand\n#{printable_hand(left_hand, left_sizes)},\n  // right hand\n#{printable_hand(right_hand, right_sizes)}\n)]
 end
 
 puts printable_layouts
