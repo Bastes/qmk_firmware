@@ -35,9 +35,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox_80(
   // left hand
-   KC_EQL,         KC_1,  KC_2,    KC_3,         KC_4,    KC_5,       KC_ESC,
-  KC_COLN,         KC_Q,  KC_W,    KC_E,         KC_R,    KC_T,   LCA(KC_UP),
-   KC_ESC,         KC_A,  KC_S,    KC_D,         KC_F,    KC_G,
+  KC_PLUS,         KC_1,  KC_2,    KC_3,         KC_4,    KC_5,       KC_ESC,
+   KC_EQL,         KC_Q,  KC_W,    KC_E,         KC_R,    KC_T,   LCA(KC_UP),
+  KC_COLN,         KC_A,  KC_S,    KC_D,         KC_F,    KC_G,
   KC_LSPO, LCTL_T(KC_Z),  KC_X,    KC_C,         KC_V,    KC_B, LCA(KC_DOWN),
    KC_GRV,      KC_QUOT, KC_NO, KC_LEFT,      KC_RGHT,
                                                        KC_PSCR,      KC_LGUI,
@@ -53,6 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_RCTL, LSFT(KC_TAB),  KC_NO,
   KC_RALT,       KC_TAB, KC_ENT
 ),
+
 /* Keymap 1: Symbol Layer
  *
  * ,---------------------------------------------------.           ,--------------------------------------------------.
@@ -94,6 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,   KC_NO,
   KC_NO,   KC_NO,   KC_NO
 ),
+
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -134,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,   KC_NO,
   KC_NO,   KC_NO,   KC_NO,
   KC_NO, KC_WBAK, KC_WFWD
-),
+)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
