@@ -184,13 +184,13 @@ uint32_t layer_state_set_user(uint32_t state) {
         #endif
         break;
       case 1:
-        ergodox_right_led_1_on();
+        ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_1
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
         #endif
         break;
       case 2:
-        ergodox_right_led_2_on();
+        ergodox_right_led_1_on();
         #ifdef RGBLIGHT_COLOR_LAYER_2
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
         #endif
