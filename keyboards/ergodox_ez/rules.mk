@@ -35,6 +35,8 @@ RGB_MATRIX_ENABLE = no # enable later
 RGB_MATRIX_DRIVER = IS31FL3731
 DEBOUNCE_TYPE = eager_pr
 
+TAP_DANCE_ENABLE = yes # yes, I do want to tap dance, is there a problem officer?
+
 # project specific files
 SRC += matrix.c \
 	   led_i2c.c
