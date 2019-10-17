@@ -36,6 +36,7 @@ RGB_MATRIX_DRIVER = IS31FL3731
 DEBOUNCE_TYPE = eager_pr
 
 TAP_DANCE_ENABLE = yes # yes, I do want to tap dance, is there a problem officer?
+KEY_LOCK_ENABLE  = yes # also, I want to lock keys sometimes, is it ok?
 
 # project specific files
 SRC += matrix.c \

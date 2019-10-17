@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox_80(
   // left hand
-  KC_PLUS,         KC_1,  KC_2,    KC_3,         KC_4,    KC_5,             KC_ESC,
+  KC_LOCK,         KC_1,  KC_2,    KC_3,         KC_4,    KC_5,             KC_ESC,
    KC_EQL,         KC_Q,  KC_W,    KC_E,         KC_R,    KC_T,   TD(TD_SCREEN_UP),
   KC_COLN,         KC_A,  KC_S,    KC_D,         KC_F,    KC_G,
   KC_LSPO, LCTL_T(KC_Z),  KC_X,    KC_C,         KC_V,    KC_B, TD(TD_SCREEN_DOWN),
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(TD_PREV_TAB), KC_N,           KC_M,            KC_COMM,  KC_DOT, RCTL_T(KC_SLSH), KC_RSPC,
                          TD(TD_UP_PGUP), TD(TD_DOWN_PGDOWN), KC_LBRC,         KC_RBRC,   TT(1),
   KC_RGUI,       KC_ESC,
-  KC_RCTL, LSFT(KC_TAB),          KC_NO,
+  KC_RCTL, LSFT(KC_TAB),   LALT(KC_TAB),
   KC_RALT,       KC_TAB,         KC_ENT
 ),
 
