@@ -6,7 +6,7 @@
 #define MDIA 2 // media keys
 
 
-enum {
+enum tapdance_keys {
   TD_SCREEN_UP = 0,
   TD_SCREEN_DOWN,
   TD_PREV_TAB,
