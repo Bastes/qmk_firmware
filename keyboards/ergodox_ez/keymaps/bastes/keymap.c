@@ -130,8 +130,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox_80(
   // left hand
   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-  KC_NO, KC_NO,   KC_NO, KC_MS_U,   KC_NO,   KC_NO,   KC_NO,
-  KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R,   KC_NO,
+  KC_NO, KC_NO,   KC_NO, KC_MS_U,   KC_NO, KC_WH_U,   KC_NO,
+  KC_NO, KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,
   KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   KC_NO, KC_NO, KC_TRNS,   KC_NO,   KC_NO,
                                              KC_NO,   KC_NO,
