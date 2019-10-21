@@ -15,6 +15,15 @@ enum tapdance_keys {
   TD_DOWN_PGDOWN
 };
 
+
+enum unicode_names {
+  THINK
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [THINK] = 0x1F914
+};
+
 enum custom_keycodes {
   EPRM = SAFE_RANGE,
   VRSN,
@@ -87,11 +96,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [SYMB] = LAYOUT_ergodox_80(
   // left hand
-  KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_TRNS,
-  KC_NO, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
-  KC_NO, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,
-  KC_NO, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_AMPR,
-  KC_NO,   KC_NO, KC_TRNS,   KC_LT,   KC_GT,
+   KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_TRNS,
+X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
+   KC_NO, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,
+   KC_NO, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_AMPR,
+   KC_NO,   KC_NO, KC_TRNS,   KC_LT,   KC_GT,
                                                KC_NO,   KC_NO,
                                       KC_NO, KC_TRNS, KC_TRNS,
                                     KC_TRNS, KC_TRNS, KC_TRNS,
@@ -193,6 +202,8 @@ void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
+
+  set_unicode_input_mode(UC_LNX);
 };
 
 // Runs whenever there is a layer state change.
