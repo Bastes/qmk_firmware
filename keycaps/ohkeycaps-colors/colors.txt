@@ -1,0 +1,11 @@
+OBC - #e86700 - orange
+BFJ - #5991ae - blue
+BBQ - #00a6b4 - brighter blue
+RDT - #4e008e - purple
+RDX - #c16784 - dark pink
+VCO - #69d0a5 - teal
+WBO - #e3d5b9 - cream
+WCK - #eee2d0 - white
+ NN - #212224 - black
+GQM - #464746 - gray
+VAT - #93c247 - green
