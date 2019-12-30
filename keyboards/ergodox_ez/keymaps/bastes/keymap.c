@@ -120,11 +120,11 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |MsWhUp|      |           |      |      |      |      |      |      |        |
+ * |        |      | MsWhL| MsUp |MsWhR |MsWhUp|      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|MsWhDn|------|           |------|      |      |      |      |      |  Play  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift | LCtl |      |      |MsWhL |MsWhR |      |           |      |      |      | Prev | Next |      |        |
+ * | LShift | LCtl |      |      |      |      |      |           |      |      |      | Prev | Next |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | Lclk | Rclk |                                       | Mute |VolDn |VolUp |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -139,9 +139,9 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
 [MDIA] = LAYOUT_ergodox_80(
   // left hand
   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-  KC_NO,   KC_NO,   KC_NO, KC_MS_U,   KC_NO, KC_WH_U,   KC_NO,
+  KC_NO,   KC_NO, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U,   KC_NO,
   KC_NO,   KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,
-  KC_LCTL, KC_NO,   KC_NO,   KC_NO, KC_WH_L, KC_WH_R,   KC_NO,
+  KC_LCTL, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
   KC_LSFT, KC_NO, KC_TRNS,   KC_NO,   KC_NO,
                                              KC_NO,   KC_NO,
                                   KC_TRNS,   KC_NO,   KC_NO,
