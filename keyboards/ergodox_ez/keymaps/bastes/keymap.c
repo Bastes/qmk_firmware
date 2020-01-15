@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,---------------.
  *                                        | PScr | LGui |       | RGui |  Esc   |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |  *L2 | Del  | LCtl |       | RCtl | Sf+Tab |Al+Tab|
+ *                                 |LG+Spc| Del  | LCtl |       | RCtl | Sf+Tab |Al+Tab|
  *                                 |------|------|------|       |------|--------|------|
  *                                 | Space|Bckspc| LAlt |       | RAlt |  Tab   |Enter |
  *                                 `--------------------'       `----------------------'
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_LSPO, LCTL_T(KC_Z),  KC_X,    KC_C,    KC_V,    KC_B, TD(TD_SCREEN_DOWN),
   LT(1,KC_GRV),      KC_QUOT, KC_NO, KC_LEFT, KC_RGHT,
                                                        KC_PSCR,            KC_LGUI,
-                                                TT(2),  KC_DEL,            KC_LCTL,
+                                         LGUI(KC_SPC),  KC_DEL,            KC_LCTL,
                                                KC_SPC, KC_BSPC,            KC_LALT,
   // right hand
            KC_ESC, KC_6,           KC_7,               KC_8,    KC_9,            KC_0, KC_MINS,
@@ -86,13 +86,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |       |      |  vv  |   <  |   >  |                                       |   0  |   ,  |   .  |   =  |  vv  |
  *   `-----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |  vv  |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |  vv  |  vv  |  vv  |       |  vv  |  vv  |      |
- *                                 |------|------|------|       |------|------|------|
- *                                 |  vv  |  vv  |  vv  |       |  vv  |  vv  |  vv  |
- *                                 `--------------------'       `--------------------'
+ *                                         ,-------------.       ,-------------.
+ *                                         |      |      |       |      |  vv  |
+ *                                  ,------|------|------|       |------+------+------.
+ *                                  |  vv  |  vv  |  vv  |       |  vv  |  vv  |      |
+ *                                  |------|------|------|       |------|------|------|
+ *                                  |  vv  |  vv  |  vv  |       |  vv  |  vv  |  vv  |
+ *                                  `--------------------'       `--------------------'
  */
 [SYMB] = LAYOUT_ergodox_80(
   // left hand
