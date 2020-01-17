@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBOUNCE 30
 
-#define TAPPING_TOGGLE 2 // double-tap to toggle
+#define TAPPING_TOGGLE 3 // triple-tap to toggle
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
