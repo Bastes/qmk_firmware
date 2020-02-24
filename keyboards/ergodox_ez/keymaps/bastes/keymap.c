@@ -4,6 +4,28 @@
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
+#define FACC 3 // fucking french accented chars
+
+// shortcuts
+# define KC_LS KC_LSFT
+# define KC_RS KC_RSFT
+# define XP_AC XP(ACIRCL, ACIRCU)
+# define XP_AE XP(AELIGL, AELIGU)
+# define XP_AG XP(AGRAVL, AGRAVU)
+# define XP_AU XP(AUMLL, AUMLU)
+# define XP_CC XP(CCEDL, CCEDU)
+# define XP_EA XP(EACUTEL, EACUTEU)
+# define XP_EC XP(ECIRCL, ECIRCU)
+# define XP_EG XP(EGRAVL, EGRAVU)
+# define XP_EU XP(EUMLL, EUMLU)
+# define XP_IC XP(ICIRCL, ICIRCU)
+# define XP_IU XP(IUMLL, IUMLU)
+# define XP_OC XP(OCIRCL,OCIRCU)
+# define XP_OE XP(OELIGL,OELIGU)
+# define XP_OU XP(OUMLL, OUMLU)
+# define XP_UC XP(UCIRCL, UCIRCU)
+# define XP_UG XP(UGRAVL, UGRAVU)
+# define XP_UU XP(UUMLL, UUMLU)
 
 
 enum tapdance_keys {
@@ -17,11 +39,79 @@ enum tapdance_keys {
 
 
 enum unicode_names {
+  AGRAVL,
+  AGRAVU,
+  ACIRCL,
+  ACIRCU,
+  AUMLL,
+  AUMLU,
+  EACUTEL,
+  EACUTEU,
+  EGRAVL,
+  EGRAVU,
+  ECIRCL,
+  ECIRCU,
+  EUMLL,
+  EUMLU,
+  ICIRCL,
+  ICIRCU,
+  IUMLL,
+  IUMLU,
+  OCIRCL,
+  OCIRCU,
+  OUMLL,
+  OUMLU,
+  UGRAVL,
+  UGRAVU,
+  UCIRCL,
+  UCIRCU,
+  UUMLL,
+  UUMLU,
+  AELIGL,
+  AELIGU,
+  OELIGL,
+  OELIGU,
+  CCEDL,
+  CCEDU,
   THINK
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [THINK] = 0x1F914
+  [ACIRCL]  = 0x00E2,
+  [ACIRCU]  = 0x00C2,
+  [AELIGL]  = 0x00E6,
+  [AELIGU]  = 0x00C6,
+  [AGRAVL]  = 0x00E0,
+  [AGRAVU]  = 0x00C0,
+  [AUMLL]   = 0x00E4,
+  [AUMLU]   = 0x00C4,
+  [CCEDL]   = 0x00E7,
+  [CCEDU]   = 0x00C7,
+  [EACUTEL] = 0x00E9,
+  [EACUTEU] = 0x00C9,
+  [ECIRCL]  = 0x00EA,
+  [ECIRCU]  = 0x00CA,
+  [EGRAVL]  = 0x00E8,
+  [EGRAVU]  = 0x00C8,
+  [EUMLL]   = 0x00EB,
+  [EUMLU]   = 0x00CB,
+  [ICIRCL]  = 0x00EE,
+  [ICIRCU]  = 0x00CE,
+  [IUMLL]   = 0x00EF,
+  [IUMLU]   = 0x00CF,
+  [OCIRCL]  = 0x00F4,
+  [OCIRCU]  = 0x00D4,
+  [OELIGL]  = 0x0153,
+  [OELIGU]  = 0x0152,
+  [OUMLL]   = 0x00F6,
+  [OUMLU]   = 0x00D6,
+  [UCIRCL]  = 0x00FB,
+  [UCIRCU]  = 0x00DB,
+  [UGRAVL]  = 0x00F9,
+  [UGRAVU]  = 0x00D9,
+  [UUMLL]   = 0x00FC,
+  [UUMLU]   = 0x00DC,
+  [THINK]   = 0x1F914
 };
 
 enum custom_keycodes {
@@ -34,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |PrintScr|   1  |   2  |   3  |   4  |   5  |  Esc |           | Esc  |   6  |   7  |   8  |   9  |   0  |  - _   |
+ * |  `   ~ |   1  |   2  |   3  |   4  |   5  |  Esc |           |  Esc |   6  |   7  |   8  |   9  |   0  |  - _   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |  =   + |   Q  |   W  |   E  |   R  |   T  |  TD  |           |  TD  |   Y  |   U  |   I  |   O  |   P  |  \ |   |
  * |--------+------+------+------+------+------| ScUp |           | NTab |------+------+------+------+------+--------|
@@ -42,24 +132,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  TD  |           |  TD  |------+------+------+------+------+--------|
  * | ( / LS |Z/LCtl| X/Alt|   C  |   V  |   B  | ScDn |           | PTab |   N  |   M  |   ,  | ./Alt|//RCtl| ) / RS |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | `~/L1| '  " |      | Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   | ~L1  | :L3  |      | Left | Right|                                       |  Up  | Down |      | :L3  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |  Up  | RGui |       | Home | PgUp |
+ *                                        |  Up  | LGui |       | Home | PgUp |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Left | Down | Right|       | End  |PgDown|LG+Spc|
+ *                                 | Left | Down | Right|       | End  |PgDown| PScr |
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space|Bckspc| Del  |       | RAlt | Tab  |Enter |
+ *                                 | Space|Bckspc| Del  |       | ~L1  | Tab  |Enter |
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = LAYOUT_ergodox_80(
   // left hand
-       KC_PSCR,         KC_1,         KC_2,    KC_3,    KC_4,    KC_5,             KC_ESC,
+        KC_GRV,         KC_1,         KC_2,    KC_3,    KC_4,    KC_5,             KC_ESC,
         KC_EQL,         KC_Q,         KC_W,    KC_E,    KC_R,    KC_T,   TD(TD_SCREEN_UP),
        KC_COLN,         KC_A,         KC_S,    KC_D,    KC_F,    KC_G,
        KC_LSPO, LCTL_T(KC_Z), LALT_T(KC_X),    KC_C,    KC_V,    KC_B, TD(TD_SCREEN_DOWN),
-  LT(1,KC_GRV),      KC_QUOT,        KC_NO, KC_LEFT, KC_RGHT,
-                                                                KC_UP,            KC_RGUI,
+         TT(1),       OSL(3),        KC_NO, KC_LEFT, KC_RGHT,
+                                                                KC_UP,            KC_LGUI,
                                                      KC_LEFT, KC_DOWN,           KC_RIGHT,
                                                       KC_SPC, KC_BSPC,             KC_DEL,
   // right hand
@@ -67,10 +157,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(TD_NEXT_TAB),      KC_Y,           KC_U,               KC_I,           KC_O,            KC_P, KC_BSLS,
                         KC_H,           KC_J,               KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
   TD(TD_PREV_TAB),      KC_N,           KC_M,            KC_COMM, LALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSPC,
-                              TD(TD_UP_PGUP), TD(TD_DOWN_PGDOWN),        KC_LBRC,         KC_RBRC,   TT(1),
+                              TD(TD_UP_PGUP), TD(TD_DOWN_PGDOWN),          KC_NO,          OSL(3),   TT(1),
           KC_HOME,   KC_PGUP,
-           KC_END, KC_PGDOWN,   LGUI(KC_SPC),
-          KC_RALT,    KC_TAB,         KC_ENT
+           KC_END, KC_PGDOWN,        KC_PSCR,
+            TT(1),    KC_TAB,         KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
@@ -155,6 +245,49 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
   KC_NO,   KC_NO,
   KC_NO,   KC_NO,   KC_NO,
   KC_NO, KC_WBAK, KC_WFWD
+),
+
+/* Keymap 3: Fucking french accented chars
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        | Æ  æ | É  é | Ê  ê | È  è |      |      |           |      | Ù  ù | Û  û | Î  î | Ô  ô | Œ  œ |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        | Â  â | À  à | Ë  ë |      |      |------|           |------|      | Ü  ü | Ï  ï | Ö  ö |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | LShift | Ä  ä |      | Ç  ç |      |      |      |           |      |      |      |      |      |      | RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |  L0  |      |      |      |                                       |      |      |      |  L0  |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |------|------|------|       |------|------|------|
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+
+[FACC] = LAYOUT_ergodox_80(
+  // left hand
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, XP_AE, XP_EA, XP_EC, XP_EG, KC_NO, KC_NO,
+  KC_NO, XP_AC, XP_AG, XP_EU, KC_NO, KC_NO,
+  KC_LS, XP_AU, KC_NO, XP_CC, KC_NO, KC_NO, KC_NO,
+  KC_NO, TO(0), KC_NO, KC_NO, KC_NO,
+                                     KC_NO, KC_NO,
+                              KC_NO, KC_NO, KC_NO,
+                              KC_NO, KC_NO, KC_NO,
+  // right hand
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, XP_UG, XP_UC, XP_IC, XP_OC, XP_OE, KC_NO,
+         KC_NO, XP_UU, XP_IU, XP_OU, KC_NO, KC_NO,
+  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_RS,
+                KC_NO, KC_NO, KC_NO, TO(0), KC_NO,
+  KC_NO, KC_NO,
+  KC_NO, KC_NO, KC_NO,
+  KC_NO, KC_NO, KC_NO
 )
 };
 
