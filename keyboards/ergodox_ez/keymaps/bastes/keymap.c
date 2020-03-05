@@ -9,6 +9,7 @@
 // shortcuts
 # define KC_LS KC_LSFT
 # define KC_RS KC_RSFT
+# define NBSPC X(NBSP)
 # define XP_AC XP(ACIRCL, ACIRCU)
 # define XP_AE XP(AELIGL, AELIGU)
 # define XP_AG XP(AGRAVL, AGRAVU)
@@ -39,41 +40,42 @@ enum tapdance_keys {
 
 
 enum unicode_names {
-  AGRAVL,
-  AGRAVU,
   ACIRCL,
   ACIRCU,
+  AELIGL,
+  AELIGU,
+  AGRAVL,
+  AGRAVU,
   AUMLL,
   AUMLU,
+  CCEDL,
+  CCEDU,
   EACUTEL,
   EACUTEU,
-  EGRAVL,
-  EGRAVU,
   ECIRCL,
   ECIRCU,
+  EGRAVL,
+  EGRAVU,
   EUMLL,
   EUMLU,
   ICIRCL,
   ICIRCU,
   IUMLL,
   IUMLU,
+  NBSP,
   OCIRCL,
   OCIRCU,
-  OUMLL,
-  OUMLU,
-  UGRAVL,
-  UGRAVU,
-  UCIRCL,
-  UCIRCU,
-  UUMLL,
-  UUMLU,
-  AELIGL,
-  AELIGU,
   OELIGL,
   OELIGU,
-  CCEDL,
-  CCEDU,
-  THINK
+  OUMLL,
+  OUMLU,
+  THINK,
+  UCIRCL,
+  UCIRCU,
+  UGRAVL,
+  UGRAVU,
+  UUMLL,
+  UUMLU
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -99,19 +101,20 @@ const uint32_t PROGMEM unicode_map[] = {
   [ICIRCU]  = 0x00CE,
   [IUMLL]   = 0x00EF,
   [IUMLU]   = 0x00CF,
+  [NBSP]    = 0x00A0,
   [OCIRCL]  = 0x00F4,
   [OCIRCU]  = 0x00D4,
   [OELIGL]  = 0x0153,
   [OELIGU]  = 0x0152,
   [OUMLL]   = 0x00F6,
   [OUMLU]   = 0x00D6,
+  [THINK]   = 0x1F914,
   [UCIRCL]  = 0x00FB,
   [UCIRCU]  = 0x00DB,
   [UGRAVL]  = 0x00F9,
   [UGRAVU]  = 0x00D9,
   [UUMLL]   = 0x00FC,
-  [UUMLU]   = 0x00DC,
-  [THINK]   = 0x1F914
+  [UUMLU]   = 0x00DC
 };
 
 enum custom_keycodes {
@@ -265,7 +268,7 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
  *                                 |------|------|------|       |------|------|------|
- *                                 |      |      |      |       |      |      |      |
+ *                                 | NbSp |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 
@@ -278,7 +281,7 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES, KC_PIPE,
   KC_NO, TO(0), KC_NO, KC_NO, KC_NO,
                                      KC_NO, KC_NO,
                               KC_NO, KC_NO, KC_NO,
-                              KC_NO, KC_NO, KC_NO,
+                              NBSPC, KC_NO, KC_NO,
   // right hand
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_NO, XP_UG, XP_UC, XP_IC, XP_OC, XP_OE, KC_NO,
