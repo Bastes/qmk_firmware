@@ -19,6 +19,7 @@
 # define XP_EC XP(ECIRCL, ECIRCU)
 # define XP_EG XP(EGRAVL, EGRAVU)
 # define XP_EU XP(EUMLL, EUMLU)
+# define X_EUR X(EURO)
 # define XP_IC XP(ICIRCL, ICIRCU)
 # define XP_IU XP(IUMLL, IUMLU)
 # define XP_OC XP(OCIRCL,OCIRCU)
@@ -56,6 +57,7 @@ enum unicode_names {
   EGRAVU,
   EUMLL,
   EUMLU,
+  EURO,
   ICIRCL,
   ICIRCU,
   IUMLL,
@@ -95,6 +97,7 @@ const uint32_t PROGMEM unicode_map[] = {
   [EGRAVU]  = 0x00C8,
   [EUMLL]   = 0x00EB,
   [EUMLU]   = 0x00CB,
+  [EURO]    = 0x20AC,
   [ICIRCL]  = 0x00EE,
   [ICIRCU]  = 0x00CE,
   [IUMLL]   = 0x00EF,
@@ -255,7 +258,7 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES,   KC_NO,
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        | Æ  æ | Ê  ê | É  é | È  è |      |      |           |      | Û  û | Ù  ù | Î  î | Ô  ô | Œ  œ |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        | À  à | Â  â | Ë  ë |      |      |------|           |------|      | Ü  ü | Ï  ï | Ö  ö |      |        |
+ * |        | À  à | Â  â | Ë  ë |    € |      |------|           |------|      | Ü  ü | Ï  ï | Ö  ö |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LShift | Ä  ä |      | Ç  ç |      |      |      |           |      |      |      |      |      |      | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -274,7 +277,7 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES,   KC_NO,
   // left hand
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_NO, XP_AE, XP_EC, XP_EA, XP_EG, KC_NO, KC_NO,
-  KC_NO, XP_AG, XP_AC, XP_EU, KC_NO, KC_NO,
+  KC_NO, XP_AG, XP_AC, XP_EU, X_EUR, KC_NO,
   KC_LS, XP_AU, KC_NO, XP_CC, KC_NO, KC_NO, KC_NO,
   KC_NO, TO(0), KC_NO, KC_NO, KC_NO,
                                      KC_NO, KC_NO,
