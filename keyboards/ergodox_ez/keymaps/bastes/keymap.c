@@ -141,9 +141,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |  Up  | LGui |       | Home | PgUp |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Left | Down | Right|       | End  |PgDown| PScr |
+ *                                 | Left | Down | Right|       | End  |PgDown| Esc  |
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space|Bckspc| Del  |       | :L1  | Tab  |Enter |
+ *                                 | Space|Bckspc| Del  |       | :L1  | Tab  |Return|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = LAYOUT_ergodox_80(
@@ -157,20 +157,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_LEFT, KC_DOWN,           KC_RIGHT,
                                                       KC_SPC, KC_BSPC,             KC_DEL,
   // right hand
-           KC_ESC,      KC_6,    KC_7,    KC_8,           KC_9,            KC_0, KC_MINS,
-  TD(TD_NEXT_TAB),      KC_Y,    KC_U,    KC_I,           KC_O,            KC_P, KC_BSLS,
-                        KC_H,    KC_J,    KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
-  TD(TD_PREV_TAB),      KC_N,    KC_M, KC_COMM, LALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSPC,
-                                KC_UP, KC_DOWN,          KC_NO,          OSL(3),  OSL(1),
+           KC_ESC,      KC_6,   KC_7,    KC_8,           KC_9,            KC_0, KC_MINS,
+  TD(TD_NEXT_TAB),      KC_Y,   KC_U,    KC_I,           KC_O,            KC_P, KC_BSLS,
+                        KC_H,   KC_J,    KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
+  TD(TD_PREV_TAB),      KC_N,   KC_M, KC_COMM, LALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSPC,
+                               KC_UP, KC_DOWN,          KC_NO,          OSL(3),  OSL(1),
           KC_HOME,   KC_PGUP,
-           KC_END, KC_PGDOWN, KC_PSCR,
-           OSL(1),    KC_TAB,  KC_ENT
+           KC_END, KC_PGDOWN, KC_ESC,
+           OSL(1),    KC_TAB, KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           | NLck |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  | PScr |           | NLck |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  * |        |   !  |   @  |   {  |   }  |   ?  |      |           |      |   |  |   7  |   8  |   9  |   *  |   F12  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -190,7 +190,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [SYMB] = LAYOUT_ergodox_80(
   // left hand
-   KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_TRNS,
+   KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_PSCR,
 X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES,   KC_NO,
    KC_NO, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,
  KC_CLCK, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,   KC_NO,
