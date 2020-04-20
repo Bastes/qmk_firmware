@@ -373,25 +373,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_NEXT_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LCTL(KC_PGDOWN)),
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case EPRM:
-        eeconfig_init();
-        return false;
-      case VRSN:
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        return false;
-      #ifdef RGBLIGHT_ENABLE
-      case RGB_SLD:
-        rgblight_mode(1);
-        return false;
-      #endif
-    }
-  }
-  return true;
-}
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
