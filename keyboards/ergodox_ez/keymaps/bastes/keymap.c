@@ -295,12 +295,76 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES,   KC_NO,
 )
 };
 
+void td_screen_up_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      register_code(KC_LCTL);
+      register_code(KC_LALT);
+      register_code(KC_UP);
+      break;
+    case 3:
+      register_code(KC_LSFT);
+      register_code(KC_LCTL);
+      register_code(KC_LALT);
+      register_code(KC_UP);
+      break;
+  }
+};
+
+void td_screen_down_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      register_code(KC_LCTL);
+      register_code(KC_LALT);
+      register_code(KC_DOWN);
+      break;
+    case 3:
+      register_code(KC_LSFT);
+      register_code(KC_LCTL);
+      register_code(KC_LALT);
+      register_code(KC_DOWN);
+      break;
+  }
+};
+
+void td_screen_up_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      unregister_code(KC_LCTL);
+      unregister_code(KC_LALT);
+      unregister_code(KC_UP);
+      break;
+    case 3:
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+      unregister_code(KC_LALT);
+      unregister_code(KC_UP);
+      break;
+  }
+};
+
+void td_screen_down_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      unregister_code(KC_LCTL);
+      unregister_code(KC_LALT);
+      unregister_code(KC_DOWN);
+      break;
+    case 3:
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+      unregister_code(KC_LALT);
+      unregister_code(KC_DOWN);
+      break;
+  }
+};
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   // one screen up
-  [TD_SCREEN_UP] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LCA(KC_UP)),
+  [TD_SCREEN_UP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_screen_up_finished, td_screen_up_reset),
 
   // one screen down
-  [TD_SCREEN_DOWN] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LCA(KC_DOWN)),
+  [TD_SCREEN_DOWN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_screen_down_finished, td_screen_down_reset),
 
   // previous tab
   [TD_PREV_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LCTL(KC_PGUP)),
