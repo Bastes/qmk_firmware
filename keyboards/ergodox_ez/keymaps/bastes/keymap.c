@@ -359,6 +359,62 @@ void td_screen_down_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 };
 
+void td_next_tab_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      register_code(KC_LCTL);
+      register_code(KC_PGDOWN);
+      break;
+    case 3:
+      register_code(KC_LSFT);
+      register_code(KC_LCTL);
+      register_code(KC_PGDOWN);
+      break;
+  }
+};
+
+void td_prev_tab_finished(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      register_code(KC_LCTL);
+      register_code(KC_PGUP);
+      break;
+    case 3:
+      register_code(KC_LSFT);
+      register_code(KC_LCTL);
+      register_code(KC_PGUP);
+      break;
+  }
+};
+
+void td_next_tab_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      unregister_code(KC_LCTL);
+      unregister_code(KC_PGDOWN);
+      break;
+    case 3:
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+      unregister_code(KC_PGDOWN);
+      break;
+  }
+};
+
+void td_prev_tab_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 2:
+      unregister_code(KC_LCTL);
+      unregister_code(KC_PGUP);
+      break;
+    case 3:
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
+      unregister_code(KC_PGUP);
+      break;
+  }
+};
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   // one screen up
   [TD_SCREEN_UP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_screen_up_finished, td_screen_up_reset),
@@ -367,10 +423,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SCREEN_DOWN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_screen_down_finished, td_screen_down_reset),
 
   // previous tab
-  [TD_PREV_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LCTL(KC_PGUP)),
+  [TD_PREV_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_prev_tab_finished, td_prev_tab_reset),
 
   // next tab
-  [TD_NEXT_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_NO, LCTL(KC_PGDOWN)),
+  [TD_NEXT_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_next_tab_finished, td_next_tab_reset),
 };
 
 // Runs just one time when the keyboard initializes.
