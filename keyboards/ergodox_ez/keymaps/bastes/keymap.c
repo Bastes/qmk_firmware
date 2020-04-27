@@ -5,6 +5,7 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 #define FACC 3 // fucking french accented chars
+#define FPSK 4 // fps-oriented layout
 
 // shortcuts
 # define KC_LS KC_LSFT
@@ -136,35 +137,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  TD  |           |  TD  |------+------+------+------+------+--------|
  * | ( / LS |Z/LCtl| X/Alt| C/L1 | V/L3 |   B  | ScDn |           | PTab |   N  | M/L3 | ,/L1 | ./Alt|//RCtl| ) / RS |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | :L1  | :L3  |      | Left | Right|                                       |  Up  | Down |      | :L3  | :L1  |
+ *   | :L1  | :L3  |  TL5 | Left | Right|                                       |  Up  | Down |      | :L3  | :L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |  Up  | LGui |       | Home | PgUp |
+ *                                        | PgUp | Home |       | LGui |  Up  |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Left | Down | Right|       | End  |PgDown| Esc  |
+ *                                 | Esc  |PgDown| End  |       | Right| Down | Left |
  *                                 |------|------|------|       |------|------|------|
  *                                 | Space|Bckspc| Del  |       | :L1  | Tab  |Return|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = LAYOUT_ergodox_80(
   // left hand
-        KC_GRV,         KC_1,         KC_2,        KC_3,        KC_4,    KC_5,             KC_ESC,
-        KC_EQL,         KC_Q,         KC_W,        KC_E,        KC_R,    KC_T,   TD(TD_SCREEN_UP),
-       KC_COLN,         KC_A,         KC_S,        KC_D,        KC_F,    KC_G,
-       KC_LSPO, LCTL_T(KC_Z), LALT_T(KC_X), LT(1, KC_C), LT(3, KC_V),    KC_B, TD(TD_SCREEN_DOWN),
-        OSL(1),       OSL(3),        KC_NO,     KC_LEFT,     KC_RGHT,
-                                                                        KC_UP,            KC_LGUI,
-                                                             KC_LEFT, KC_DOWN,           KC_RIGHT,
-                                                              KC_SPC, KC_BSPC,             KC_DEL,
+        KC_GRV,         KC_1,         KC_2,        KC_3,        KC_4,      KC_5,             KC_ESC,
+        KC_EQL,         KC_Q,         KC_W,        KC_E,        KC_R,      KC_T,   TD(TD_SCREEN_UP),
+       KC_COLN,         KC_A,         KC_S,        KC_D,        KC_F,      KC_G,
+       KC_LSPO, LCTL_T(KC_Z), LALT_T(KC_X), LT(1, KC_C), LT(3, KC_V),      KC_B, TD(TD_SCREEN_DOWN),
+        OSL(1),       OSL(3),        TG(4),     KC_LEFT,     KC_RGHT,
+                                                                        KC_PGUP,            KC_HOME,
+                                                              KC_ESC, KC_PGDOWN,             KC_END,
+                                                              KC_SPC,   KC_BSPC,             KC_DEL,
   // right hand
-           KC_ESC,      KC_6,        KC_7,           KC_8,           KC_9,            KC_0, KC_MINS,
-  TD(TD_NEXT_TAB),      KC_Y,        KC_U,           KC_I,           KC_O,            KC_P, KC_BSLS,
-                        KC_H,        KC_J,           KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
-  TD(TD_PREV_TAB),      KC_N, LT(3, KC_M), LT(1, KC_COMM), LALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSPC,
-                                    KC_UP,        KC_DOWN,          KC_NO,          OSL(3),  OSL(1),
-          KC_HOME,   KC_PGUP,
-           KC_END, KC_PGDOWN,      KC_ESC,
-           OSL(1),    KC_TAB,      KC_ENT
+           KC_ESC,    KC_6,        KC_7,           KC_8,           KC_9,            KC_0, KC_MINS,
+  TD(TD_NEXT_TAB),    KC_Y,        KC_U,           KC_I,           KC_O,            KC_P, KC_BSLS,
+                      KC_H,        KC_J,           KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
+  TD(TD_PREV_TAB),    KC_N, LT(3, KC_M), LT(1, KC_COMM), LALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSPC,
+                                  KC_UP,        KC_DOWN,          KC_NO,          OSL(3),  OSL(1),
+          KC_LGUI,   KC_UP,
+          KC_LEFT, KC_DOWN,    KC_RIGHT,
+           OSL(1),  KC_TAB,      KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
@@ -292,6 +293,48 @@ X(THINK), KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_QUES,   KC_NO,
   KC_NO, KC_NO,
   KC_NO, KC_NO, KC_NO,
   KC_NO, KC_NO, KC_NO
+),
+
+/* Keymap 4: FPS Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  `   ~ |   1  |   2  |   3  |   4  |   5  |  Esc |           |      |   6  |   7  |   8  |   9  |   0  |  - _   |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |   Tab  |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |  \ |   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ; : |  ' "   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |  , < |  . > |  / ? | RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |  TL4 | Left | Right|                                       |  Up  | Down |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | PgUp | Home |       | LGui |  Up  |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 | Esc  |PgDown| End  |       | Right| Down | Left |
+ *                                 |------|------|------|       |------|------|------|
+ *                                 | Space|Bckspc|Return|       |      | Tab  |Return|
+ *                                 `--------------------'       `--------------------'
+ */
+[FPSK] = LAYOUT_ergodox_80(
+  // left hand
+   KC_GRV,  KC_1,  KC_2,    KC_3,    KC_4,    KC_5,   KC_ESC,
+   KC_TAB,  KC_Q,  KC_W,    KC_E,    KC_R,    KC_T,    KC_NO,
+  KC_CLCK,  KC_A,  KC_S,    KC_D,    KC_F,    KC_G,
+  KC_SLSH,  KC_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_NO,
+    KC_NO, KC_NO, TG(4), KC_LEFT, KC_RGHT,
+                                             KC_UP,  KC_LGUI,
+                                  KC_LEFT, KC_DOWN, KC_RIGHT,
+                                   KC_SPC, KC_BSPC,   KC_DEL,
+  // right hand
+   KC_ESC,    KC_6,     KC_7,    KC_8,   KC_9,    KC_0, KC_MINS,
+    KC_NO,    KC_Y,     KC_U,    KC_I,   KC_O,    KC_P, KC_BSLS,
+              KC_H,     KC_J,    KC_K,   KC_L, KC_SCLN, KC_QUOT,
+    KC_NO,    KC_N,     KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC,
+                       KC_UP, KC_DOWN,  KC_NO,   KC_NO,   KC_NO,
+  KC_LGUI,   KC_UP,
+  KC_LEFT, KC_DOWN, KC_RIGHT,
+    KC_NO,  KC_TAB,   KC_ENT
 )
 };
 
