@@ -137,14 +137,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  TD  |           |  TD  |------+------+------+------+------+--------|
  * | LShift |Z/LCtl| X/Alt| C/L1 | V/L3 |   B  | ScDn |           | PTab |   N  | M/L3 | ,/L1 | ./Alt|/? /RC| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | :L1  | :L3  |  TL5 | Left | Right|                                       |  Up  | Down |      | :L3  | :L1  |
+ *   |      |      |  TL5 | Left | Right|                                       |  Up  | Down |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | PgUp | Home |       | LGui |  Up  |
+ *                                        | PgUp | Home |       |      |  Up  |
  *                                 ,------|------|------|       |------+------+------.
  *                                 | Esc  |PgDown| End  |       | Right| Down | Left |
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space|Bckspc| Del  |       | :L1  | Tab  |Return|
+ *                                 | Space|Bckspc| Del  |       | LGui | Tab  |Return|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = LAYOUT_ergodox_80(
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_EQL,         KC_Q,         KC_W,        KC_E,        KC_R,      KC_T,   TD(TD_SCREEN_UP),
        KC_CLCK,         KC_A,         KC_S,        KC_D,        KC_F,      KC_G,
        KC_LSFT, LCTL_T(KC_Z), LALT_T(KC_X), LT(1, KC_C), LT(3, KC_V),      KC_B, TD(TD_SCREEN_DOWN),
-        OSL(1),       OSL(3),        TG(4),     KC_LEFT,     KC_RGHT,
+         KC_NO,        KC_NO,        TG(4),     KC_LEFT,     KC_RGHT,
                                                                         KC_PGUP,            KC_HOME,
                                                               KC_ESC, KC_PGDOWN,             KC_END,
                                                               KC_SPC,   KC_BSPC,             KC_DEL,
@@ -162,10 +162,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(TD_NEXT_TAB),    KC_Y,        KC_U,           KC_I,           KC_O,            KC_P, KC_BSLS,
                       KC_H,        KC_J,           KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
   TD(TD_PREV_TAB),    KC_N, LT(3, KC_M), LT(1, KC_COMM), LALT_T(KC_DOT), RCTL_T(KC_SLSH), KC_RSFT,
-                                  KC_UP,        KC_DOWN,          KC_NO,          OSL(3),  OSL(1),
-          KC_LGUI,   KC_UP,
+                                  KC_UP,        KC_DOWN,          KC_NO,           KC_NO,   KC_NO,
+            KC_NO,   KC_UP,
           KC_LEFT, KC_DOWN,    KC_RIGHT,
-           OSL(1),  KC_TAB,      KC_ENT
+          KC_LGUI,  KC_TAB,      KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
