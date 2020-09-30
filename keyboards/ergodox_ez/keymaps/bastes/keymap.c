@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+------+------.
  *                                 | Esc  |PgDown| End  |       | Right| Down | Left |
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space|Bckspc| Del  |       | LGui | Tab  |Return|
+ *                                 | Space|Bckspc| Del  |       | LGui*| Tab  |Return|
  *                                 `--------------------'       `--------------------'
  */
 [BASE] = LAYOUT_ergodox_80(
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_UP,        KC_DOWN,          KC_NO,           KC_NO,   KC_NO,
             KC_NO,   KC_UP,
           KC_LEFT, KC_DOWN,    KC_RIGHT,
-          KC_LGUI,  KC_TAB,      KC_ENT
+    OSM(MOD_LGUI),  KC_TAB,      KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
