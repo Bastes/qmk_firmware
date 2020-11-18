@@ -158,3 +158,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 //#define DEBUG_MATRIX_SCAN_RATE
+
+#define ONESHOT_TAP_TOGGLE 2 // double-tap oneshot keys to toggle
