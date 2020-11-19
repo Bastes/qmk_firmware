@@ -31,6 +31,8 @@
 # define XP_UC XP(UCIRCL, UCIRCU)
 # define XP_UG XP(UGRAVL, UGRAVU)
 # define XP_UU XP(UUMLL, UUMLU)
+# define SNTAB LCTL(KC_PGDOWN)
+# define SPTAB LCTL(KC_PGUP)
 
 
 enum unicode_names {
@@ -347,7 +349,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |  L5  |      |
  *                                 |------|------|------|       |------|------|------|
- *                                 |      |      |      |       |      |      |      |
+ *                                 | PTab | NTab |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 [ARWS] = LAYOUT_ergodox_80(
@@ -359,7 +361,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, KC_NO,   KC_NO,   KC_NO,    KC_NO,
                                                 KC_NO, KC_NO,
                                      KC_NO,     KC_NO, KC_NO,
-                                     KC_NO,     KC_NO, KC_NO,
+                                     SPTAB,     SNTAB, KC_NO,
   // right hand
   KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,
   KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,
