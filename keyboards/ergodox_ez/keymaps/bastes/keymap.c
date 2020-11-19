@@ -158,8 +158,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,    KC_N, LT(3, KC_M), LT(1, KC_COMM), LALT_T(KC_DOT), RCTL_T(KC_SLSH),   KC_RS,
          KC_LGUI,     KC_RPRN,        KC_RBRC,           KC_NO,   KC_NO,
   KC_NO,   KC_NO,
-  KC_NO,  OSL(5),       TG(4),
-  KC_NO,  OSL(6),      KC_ENT
+  KC_NO,  OSL(6),       TG(4),
+  KC_NO,  OSL(5),      KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
@@ -369,8 +369,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,
                  KC_NO, KC_NO, KC_LALT, KC_LCTL, KC_RS,
   KC_NO,  KC_NO,
-  KC_NO, OSL(5), KC_NO,
-  KC_NO,  KC_NO, KC_NO
+  KC_NO,  KC_NO, KC_NO,
+  KC_NO, OSL(5), KC_NO
 ),
 
 /* Keymap 6: Regolith & FXX
@@ -411,8 +411,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, SGUI(KC_6), SGUI(KC_7), SGUI(KC_8), SGUI(KC_9), SGUI(KC_0),  KC_NO,
                           KC_NO,      KC_NO,      KC_NO,      KC_NO,  KC_NO,
   KC_NO,      KC_NO,
-  KC_NO,      KC_NO,      KC_NO,
-  KC_NO,     OSL(6),      KC_NO
+  KC_NO,     OSL(6),      KC_NO,
+  KC_NO,      KC_NO,      KC_NO
 )
 };
 
