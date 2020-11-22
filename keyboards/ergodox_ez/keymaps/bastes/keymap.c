@@ -1,13 +1,15 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define FACC 3 // fucking french accented chars
-#define FPSK 4 // fps-oriented layout
-#define ARWS 5 // Keymap 5: Arrow Layer
-#define RGFN 6 // Keymap 6: Regolith & FXX
+enum layers {
+  _QWERTY = 0, // default layer
+  _SYMBOLS,    // symbols
+  _MEDIA,      // media keys
+  _FRENCH,     // fucking french accented chars
+  _FPS,        // fps-oriented layout
+  _ARROWS,     // Keymap 5: Arrow Layer
+  _REGOLITH_F, // Keymap 6: Regolith & FXX
+};
 
 // shortcuts
 # define KC_LS KC_LSFT
@@ -33,7 +35,35 @@
 # define XP_UU XP(UUMLL, UUMLU)
 # define SNTAB LCTL(KC_PGDOWN)
 # define SPTAB LCTL(KC_PGUP)
-
+# define Z_CTL LCTL_T(KC_Z)
+# define X_ALT LALT_T(KC_X)
+# define C_L1 LT(1, KC_C)
+# define V_L3 LT(3, KC_V)
+# define SCLN_L2 LT(2,KC_SCLN)
+# define M_L3 LT(3, KC_M)
+# define COMM_L1 LT(1, KC_COMM)
+# define DOT_ALT LALT_T(KC_DOT)
+# define SLS_CTL RCTL_T(KC_SLSH)
+# define LGUI_1 LGUI(KC_1)
+# define LGUI_2 LGUI(KC_2)
+# define LGUI_3 LGUI(KC_3)
+# define LGUI_4 LGUI(KC_4)
+# define LGUI_5 LGUI(KC_5)
+# define LGUI_6 LGUI(KC_6)
+# define LGUI_7 LGUI(KC_7)
+# define LGUI_8 LGUI(KC_8)
+# define LGUI_9 LGUI(KC_9)
+# define LGUI_0 LGUI(KC_0)
+# define SGUI_1 SGUI(KC_1)
+# define SGUI_2 SGUI(KC_2)
+# define SGUI_3 SGUI(KC_3)
+# define SGUI_4 SGUI(KC_4)
+# define SGUI_5 SGUI(KC_5)
+# define SGUI_6 SGUI(KC_6)
+# define SGUI_7 SGUI(KC_7)
+# define SGUI_8 SGUI(KC_8)
+# define SGUI_9 SGUI(KC_9)
+# define SGUI_0 SGUI(KC_0)
 
 enum unicode_names {
   ACIRCL,
@@ -113,50 +143,44 @@ const uint32_t PROGMEM unicode_map[] = {
   [UUMLU]   = 0x00DC
 };
 
-enum custom_keycodes {
-  EPRM = SAFE_RANGE,
-  VRSN,
-  RGB_SLD
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |   Tab  |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |  \ |   |
+ * |   Tab  |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |  | \   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |;: /L2|  ' "   |
+ * | CapsLk |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |:; /L2|  " '   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | LShift |Z/LCtl| X/Alt| C/L1 | V/L3 |   B  |      |           |      |   N  | M/L3 | ,/L1 | ./Alt|/? /RC| RShift |
+ * | LShift |Z/LCtl| X/Alt| C/L1 | V/L3 |   B  |      |           |      |   N  | M/L3 | ,/L1 | ./Alt|?/ /RC| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      | [  { |   (  |  OS  |                                       |  OS  |   )  | ]  } |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 | Esc  | Del  |      |       |      |  L5* |  L4  |
+ *                                 | Esc  | Del  |      |       |      |  L6* |  L4  |
  *                                 |------|------|------|       |------|------|------|
- *                                 | Space|Bckspc|      |       |      |  L6* |Return|
+ *                                 | Space|Bckspc|      |       |      |  L5* |Return|
  *                                 `--------------------'       `--------------------'
  */
-[BASE] = LAYOUT_ergodox_80(
+[_QWERTY] = LAYOUT_ergodox_80(
   // left hand
-    KC_NO,        KC_NO,        KC_NO,       KC_NO,       KC_NO,   KC_NO, KC_NO,
-   KC_TAB,         KC_Q,         KC_W,        KC_E,        KC_R,    KC_T, KC_NO,
-  KC_CLCK,         KC_A,         KC_S,        KC_D,        KC_F,    KC_G,
-    KC_LS, LCTL_T(KC_Z), LALT_T(KC_X), LT(1, KC_C), LT(3, KC_V),    KC_B, KC_NO,
-    KC_NO,        KC_NO,      KC_LBRC,     KC_LPRN,     KC_LGUI,
-                                                                   KC_NO, KC_NO,
-                                                         KC_ESC,  KC_DEL, KC_NO,
-                                                         KC_SPC, KC_BSPC, KC_NO,
+    KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_NO,
+  KC_CLCK,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+    KC_LS, Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B, KC_NO,
+    KC_NO, KC_NO, KC_LBRC, KC_LPRN, KC_LGUI,
+                                      KC_NO,   KC_NO,
+                                     KC_ESC,  KC_DEL, KC_NO,
+                                     KC_SPC, KC_BSPC, KC_NO,
   // right hand
-  KC_NO,   KC_NO,       KC_NO,          KC_NO,          KC_NO,           KC_NO,   KC_NO,
-  KC_NO,    KC_Y,        KC_U,           KC_I,           KC_O,            KC_P, KC_BSLS,
-            KC_H,        KC_J,           KC_K,           KC_L,   LT(2,KC_SCLN), KC_QUOT,
-  KC_NO,    KC_N, LT(3, KC_M), LT(1, KC_COMM), LALT_T(KC_DOT), RCTL_T(KC_SLSH),   KC_RS,
-         KC_LGUI,     KC_RPRN,        KC_RBRC,           KC_NO,   KC_NO,
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+  KC_NO,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
+            KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
+  KC_NO,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL,   KC_RS,
+                  KC_LGUI, KC_RPRN, KC_RBRC,   KC_NO,   KC_NO,
   KC_NO,   KC_NO,
   KC_NO,  OSL(6),       TG(4),
   KC_NO,  OSL(5),      KC_ENT
@@ -183,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[SYMB] = LAYOUT_ergodox_80(
+[_SYMBOLS] = LAYOUT_ergodox_80(
   // left hand
   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
   KC_NO, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE, KC_NO,
@@ -225,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | LClk | RClk |      |       |      |BBack | BFwd |
  *                                 `--------------------'       `--------------------'
  */
-[MDIA] = LAYOUT_ergodox_80(
+[_MEDIA] = LAYOUT_ergodox_80(
   // left hand
   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
   KC_NO,   KC_NO, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U, KC_NO,
@@ -268,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 
-[FACC] = LAYOUT_ergodox_80(
+[_FRENCH] = LAYOUT_ergodox_80(
   // left hand
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
   KC_NO, XP_AE, XP_EC, XP_EA, XP_EG, KC_NO, KC_NO,
@@ -310,7 +334,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | Space|Bckspc|      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[FPSK] = LAYOUT_ergodox_80(
+[_FPS] = LAYOUT_ergodox_80(
   // left hand
     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO,
    KC_TAB,  KC_Q,  KC_W,  KC_E,  KC_R,    KC_T, KC_NO,
@@ -347,12 +371,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |  L5  |      |
+ *                                 | Esc  |      |      |       |      |      |      |
  *                                 |------|------|------|       |------|------|------|
- *                                 | PTab | NTab |      |       |      |      |      |
+ *                                 | PTab | NTab |      |       |      |  L5  |      |
  *                                 `--------------------'       `--------------------'
  */
-[ARWS] = LAYOUT_ergodox_80(
+[_ARROWS] = LAYOUT_ergodox_80(
   // left hand
   KC_NO, KC_NO,   KC_NO,   KC_NO,    KC_NO,     KC_NO, KC_NO,
   KC_NO, KC_NO, KC_HOME,   KC_UP,   KC_END,   KC_PGUP, KC_NO,
@@ -360,7 +384,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, KC_NO,   KC_NO,   KC_NO,    KC_NO,     KC_NO, KC_NO,
   KC_NO, KC_NO,   KC_NO,   KC_NO,    KC_NO,
                                                 KC_NO, KC_NO,
-                                     KC_NO,     KC_NO, KC_NO,
+                                    KC_ESC,     KC_NO, KC_NO,
                                      SPTAB,     SNTAB, KC_NO,
   // right hand
   KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO, KC_NO,
@@ -380,8 +404,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  | F10  |  F11   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |  S1  |  S2  |  S3  |  S4  |  S5  |------|           |      |  S6  |  S7  |  S8  |  S9  | S10  |  F12   |
- * |--------+------+------+------+------+------|      |           |------|------+------+------+------+------+--------|
+ * |        |  S1  |  S2  |  S3  |  S4  |  S5  |------|           |------|  S6  |  S7  |  S8  |  S9  | S10  |  F12   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |  M1  |  M2  |  M3  |  M4  |  M5  |      |           |      |  M6  |  M7  |  M8  |  M9  | M10  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
@@ -394,25 +418,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |  L6  |      |
  *                                 `--------------------'       `--------------------'
  */
-[RGFN] = LAYOUT_ergodox_80(
+[_REGOLITH_F] = LAYOUT_ergodox_80(
   // left hand
-  KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO, KC_NO,
-  KC_NO,      KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5, KC_NO,
-  KC_NO, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5),
-  KC_NO, SGUI(KC_1), SGUI(KC_2), SGUI(KC_3), SGUI(KC_4), SGUI(KC_5), KC_NO,
-  KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-                                                              KC_NO, KC_NO,
-                                                  KC_NO,      KC_NO, KC_NO,
-                                                  KC_NO,      KC_NO, KC_NO,
+  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, KC_NO,
+  KC_NO,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_NO,
+  KC_NO, LGUI_1, LGUI_2, LGUI_3, LGUI_4, LGUI_5,
+  KC_NO, SGUI_1, SGUI_2, SGUI_3, SGUI_4, SGUI_5, KC_NO,
+  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+                                          KC_NO, KC_NO,
+                                  KC_NO,  KC_NO, KC_NO,
+                                  KC_NO,  KC_NO, KC_NO,
   // right hand
-  KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,  KC_NO,
-  KC_NO,      KC_F6,      KC_F7,      KC_F8,      KC_F9,     KC_F10, KC_F11,
-         LGUI(KC_6), LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), LGUI(KC_0), KC_F12,
-  KC_NO, SGUI(KC_6), SGUI(KC_7), SGUI(KC_8), SGUI(KC_9), SGUI(KC_0),  KC_NO,
-                          KC_NO,      KC_NO,      KC_NO,      KC_NO,  KC_NO,
-  KC_NO,      KC_NO,
-  KC_NO,     OSL(6),      KC_NO,
-  KC_NO,      KC_NO,      KC_NO
+  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+  KC_NO,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11,
+         LGUI_6, LGUI_7, LGUI_8, LGUI_9, LGUI_0, KC_F12,
+  KC_NO, SGUI_6, SGUI_7, SGUI_8, SGUI_9, SGUI_0,  KC_NO,
+                  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+  KC_NO,  KC_NO,
+  KC_NO, OSL(6),  KC_NO,
+  KC_NO,  KC_NO,  KC_NO
 )
 };
 
