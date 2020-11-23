@@ -143,7 +143,40 @@ const uint32_t PROGMEM unicode_map[] = {
   [UUMLU]   = 0x00DC
 };
 
+/////////////////////////////////////
+// BEGIN custom tap-hold dancing PT 1
+
+typedef struct {
+    bool is_press_action;
+    uint8_t state;
+} tap;
+
+enum {
+    SINGLE_TAP = 1,
+    SINGLE_HOLD,
+    DOUBLE_TAP,
+    DOUBLE_HOLD,
+    DOUBLE_SINGLE_TAP, // Send two single taps
+    TRIPLE_TAP,
+    TRIPLE_HOLD
+};
+
+// Tap dance enums
+enum {
+    R1_TAP
+};
+
+uint8_t cur_dance(qk_tap_dance_state_t *state);
+
+// For the x tap dance. Put it here so it can be used in any keymap
+void x_finished(qk_tap_dance_state_t *state, void *user_data);
+void x_reset(qk_tap_dance_state_t *state, void *user_data);
+
+// END custom tap-hold dancing PT 1
+///////////////////////////////////
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -155,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | LShift |Z/LCtl| X/Alt| C/L1 | V/L3 |   B  |      |           |      |   N  | M/L3 | ,/L1 | ./Alt|?/ /RC| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      | [  { |   (  |  OS  |                                       |  OS  |   )  | ]  } |      |      |
+ *   |      |      |      |      |  OS  |                                       |  OS  |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -171,19 +204,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_NO,
   KC_CLCK,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
     KC_LS, Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B, KC_NO,
-    KC_NO, KC_NO, KC_LBRC, KC_LPRN, KC_LGUI,
+    KC_NO, KC_NO,   KC_NO,   KC_NO, KC_LGUI,
                                       KC_NO,   KC_NO,
                                      KC_ESC,  KC_DEL, KC_NO,
                                      KC_SPC, KC_BSPC, KC_NO,
   // right hand
-  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-  KC_NO,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
-            KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
-  KC_NO,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL,   KC_RS,
-                  KC_LGUI, KC_RPRN, KC_RBRC,   KC_NO,   KC_NO,
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_NO,   KC_NO,   KC_NO,
+  KC_NO,    KC_Y,    KC_U,    KC_I,       KC_O,    KC_P, KC_BSLS,
+            KC_H,    KC_J,    KC_K,       KC_L, SCLN_L2, KC_QUOT,
+  KC_NO,    KC_N,    M_L3, COMM_L1,    DOT_ALT, SLS_CTL,   KC_RS,
+                  KC_LGUI,   KC_NO, TD(R1_TAP),   KC_NO,   KC_NO,
   KC_NO,   KC_NO,
-  KC_NO,  OSL(6),       TG(4),
-  KC_NO,  OSL(5),      KC_ENT
+  KC_NO,  OSL(6),   TG(4),
+  KC_NO,  OSL(5),  KC_ENT
 ),
 
 /* Keymap 1: Symbol Layer
@@ -413,9 +446,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |------|------|------|       |------|------|------|
  *                                 |      |      |      |       |      |  L6  |      |
+ *                                 |------|------|------|       |------|------|------|
+ *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
 [_REGOLITH_F] = LAYOUT_ergodox_80(
@@ -440,6 +473,86 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
+
+/////////////////////////////////////
+// BEGIN custom tap-hold dancing PT 2
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ *
+ * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
+ *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
+ *
+ * Good places to put an advanced tap dance:
+ *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ *
+ * Criteria for "good placement" of a tap dance key:
+ *  Not a key that is hit frequently in a sentence
+ *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
+ *    in a web form. So 'tab' would be a poor choice for a tap dance.
+ *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
+ *    letter 'p', the word 'pepper' would be quite frustating to type.
+ *
+ * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
+ *
+ */
+uint8_t cur_dance(qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return SINGLE_TAP;
+        else return SINGLE_HOLD;
+    } else if (state->count == 2) {
+        if (state->interrupted || !state->pressed) return DOUBLE_TAP;
+        else return DOUBLE_HOLD;
+    } else if (state->count == 3) {
+        if (state->interrupted || !state->pressed) return TRIPLE_TAP;
+        else return TRIPLE_HOLD;
+    } else return 8;
+}
+
+// Create an instance of 'tap' for the 'r1' tap dance.
+static tap r1_tap_state = {
+    .is_press_action = true,
+    .state = 0
+};
+
+void r1_finished(qk_tap_dance_state_t *state, void *user_data) {
+    r1_tap_state.state = cur_dance(state);
+    switch (r1_tap_state.state) {
+        case SINGLE_TAP: register_code(KC_1); break;
+        case SINGLE_HOLD: register_code(KC_2); break;
+        case DOUBLE_TAP: register_code(KC_3); break;
+        case DOUBLE_HOLD: register_code(KC_4); break;
+        case TRIPLE_TAP: register_code(KC_5); break;
+        case TRIPLE_HOLD: register_code(KC_6); break;
+    }
+}
+
+void r1_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (r1_tap_state.state) {
+        case SINGLE_TAP: unregister_code(KC_1); break;
+        case SINGLE_HOLD: unregister_code(KC_2); break;
+        case DOUBLE_TAP: unregister_code(KC_3); break;
+        case DOUBLE_HOLD: unregister_code(KC_4); break;
+        case TRIPLE_TAP: unregister_code(KC_5); break;
+        case TRIPLE_HOLD: unregister_code(KC_6); break;
+    }
+    r1_tap_state.state = 0;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [R1_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, r1_finished, r1_reset)
+};
+
+// BEGIN custom tap-hold dancing PT 2
+/////////////////////////////////////
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
