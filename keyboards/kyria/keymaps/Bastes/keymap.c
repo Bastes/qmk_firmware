@@ -25,6 +25,9 @@ enum layers {
   _REGOLITH_F, // Keymap 6: Regolith & FXX
 };
 
+#define RGB_DI_PIN D3
+#define RGBLED_NUM 20
+
 // shortcuts
 # define KC_LS KC_LSFT
 # define KC_RS KC_RSFT
@@ -172,10 +175,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PIPE,
-      KC_CLCK,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                         KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
-      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,  OSL(6),    TG(4),    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
-                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,  OSL(5),   KC_ENT, KC_LGUI, _______, _______
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PIPE,
+      KC_CLCK,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
+      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(6),   TG(4),    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
+                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI, RGB_MODE_XMAS,  RGB_TOG
     ),
  /*
   * 1 - Symbols
@@ -187,15 +190,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
   * |        |   %  |   ^  |   [  |   ]  |   ~  |      |      |  |      |      |   _  |   1  |   2  |   3  |   =  |        |
   * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
-  *                        |      |      |      |      |      |  |      |      |      |      |      |
+  *                        |      |      |      |      |      |  |      |      |   0  |      |      |
   *                        `----------------------------------'  `----------------------------------'
   */
-     [_SYMBOLS] = LAYOUT(
-       _______, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR, KC_P7,   KC_P8,  KC_P9, KC_PAST, KC_NLCK,
-       _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS, KC_P4,   KC_P5,  KC_P6, KC_PPLS,  KC_INS,
-       _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS, KC_P1,   KC_P2,  KC_P3,  KC_EQL, _______,
-                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-     ),
+    [_SYMBOLS] = LAYOUT(
+      _______, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR,   KC_P7,   KC_P8,  KC_P9, KC_PAST, KC_NLCK,
+      _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,   KC_P4,   KC_P5,  KC_P6, KC_PPLS,  KC_INS,
+      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,   KC_P1,   KC_P2,  KC_P3,  KC_EQL, _______,
+                                 _______, _______, _______, _______, _______, _______, _______,   KC_P0, _______, _______
+    ),
  /*
   * 2 - Media & Mouse
   *
@@ -270,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                                     _______, _______, _______, _______, _______, _______,
        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,  KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                  _______, _______, _______,   SPTAB,   SNTAB,  OSL(5), _______, _______, _______, _______
+                                  _______, _______, _______,   SPTAB,   SNTAB,   TG(5), _______, _______, _______, _______
      ),
  /*
   * 6 - Regolith & FXX
@@ -289,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                       KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
        _______,  LGUI_1,  LGUI_2,  LGUI_3,  LGUI_4,  LGUI_5,                                      LGUI_6,  LGUI_7,  LGUI_8,  LGUI_9,  LGUI_0,  KC_F12,
        _______,  SGUI_1,  SGUI_2,  SGUI_3,  SGUI_4,  SGUI_5, _______, _______, _______, _______,  SGUI_6,  SGUI_7,  SGUI_8,  SGUI_9,  SGUI_0,   KC_NO,
-                                  _______, _______, _______, _______, _______, _______,  OSL(6), _______, _______, _______
+                                  _______, _______, _______, _______, _______, _______,   TG(6), _______, _______, _______
      ),
 // /*
 //  * Layer template

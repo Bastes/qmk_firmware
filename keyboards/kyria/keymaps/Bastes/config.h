@@ -30,3 +30,17 @@
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK
+
+#define UNICODE_SELECTED_MODES UC_LNX
+
+
+#define MOUSEKEY_INTERVAL       20
+#define MOUSEKEY_DELAY          0
+#define MOUSEKEY_TIME_TO_MAX    240
+#define MOUSEKEY_MAX_SPEED      120
+#define MOUSEKEY_WHEEL_DELAY    0
+
+#define TAPPING_TOGGLE 2 // triple-tap to toggle
+
+#define TAPPING_TERM 200
+#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
