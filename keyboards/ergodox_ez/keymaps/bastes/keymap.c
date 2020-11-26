@@ -44,26 +44,6 @@ enum layers {
 # define COMM_L1 LT(1, KC_COMM)
 # define DOT_ALT LALT_T(KC_DOT)
 # define SLS_CTL RCTL_T(KC_SLSH)
-# define LGUI_1 LGUI(KC_1)
-# define LGUI_2 LGUI(KC_2)
-# define LGUI_3 LGUI(KC_3)
-# define LGUI_4 LGUI(KC_4)
-# define LGUI_5 LGUI(KC_5)
-# define LGUI_6 LGUI(KC_6)
-# define LGUI_7 LGUI(KC_7)
-# define LGUI_8 LGUI(KC_8)
-# define LGUI_9 LGUI(KC_9)
-# define LGUI_0 LGUI(KC_0)
-# define SGUI_1 SGUI(KC_1)
-# define SGUI_2 SGUI(KC_2)
-# define SGUI_3 SGUI(KC_3)
-# define SGUI_4 SGUI(KC_4)
-# define SGUI_5 SGUI(KC_5)
-# define SGUI_6 SGUI(KC_6)
-# define SGUI_7 SGUI(KC_7)
-# define SGUI_8 SGUI(KC_8)
-# define SGUI_9 SGUI(KC_9)
-# define SGUI_0 SGUI(KC_0)
 
 enum unicode_names {
   ACIRCL,
@@ -146,24 +126,58 @@ const uint32_t PROGMEM unicode_map[] = {
 /////////////////////////////////////
 // BEGIN custom tap-hold dancing PT 1
 
+// a way to make a parameterable tap dance suggested by @drashna from the QMK discord
+
+typedef struct {
+    uint16_t kc;
+} qk_tap_dance_regolith_t;
+
+void tapdance_regolith_finished(qk_tap_dance_state_t *state, void *user_data) {
+    qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+    if (state->count == 1) {
+        tap_code16(LGUI(pair->kc));
+    } else if (state->count == 2) {
+        tap_code16(LGUI(LALT(pair->kc)));
+    }
+}
+
+#define MY_CUSTOM_ACTION_TAPDANCE(keycode) {  \
+    .fn = { NULL, NULL, (void *)tapdance_regolith_finished }, \
+    .user_data = (void *)&((qk_tap_dance_regolith_t) { keycode }),  \
+  }
+
+
 typedef struct {
     bool is_press_action;
     uint8_t state;
 } tap;
 
+// Tap dances
 enum {
-    SINGLE_TAP = 1,
+    SR1,
+    SR2,
+    SR3,
+    SR4,
+    SR5,
+    SR6,
+    SR7,
+    SR8,
+    SR9,
+    SR0,
+    R1_TAP
+};
+
+// Tap dance modes
+enum {
+    SINGLE_TAP,
     SINGLE_HOLD,
     DOUBLE_TAP,
     DOUBLE_HOLD,
     DOUBLE_SINGLE_TAP, // Send two single taps
     TRIPLE_TAP,
-    TRIPLE_HOLD
-};
-
-// Tap dance enums
-enum {
-    R1_TAP
+    TRIPLE_HOLD,
+    NOOP
 };
 
 uint8_t cur_dance(qk_tap_dance_state_t *state);
@@ -439,7 +453,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |  S1  |  S2  |  S3  |  S4  |  S5  |------|           |------|  S6  |  S7  |  S8  |  S9  | S10  |  F12   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |  M1  |  M2  |  M3  |  M4  |  M5  |      |           |      |  M6  |  M7  |  M8  |  M9  | M10  |        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -453,23 +467,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_REGOLITH_F] = LAYOUT_ergodox_80(
   // left hand
-  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, KC_NO,
-  KC_NO,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5, KC_NO,
-  KC_NO, LGUI_1, LGUI_2, LGUI_3, LGUI_4, LGUI_5,
-  KC_NO, SGUI_1, SGUI_2, SGUI_3, SGUI_4, SGUI_5, KC_NO,
-  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-                                          KC_NO, KC_NO,
-                                  KC_NO,  KC_NO, KC_NO,
-                                  KC_NO,  KC_NO, KC_NO,
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+  KC_NO,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_NO,
+  KC_NO, TD(SR1), TD(SR2), TD(SR3), TD(SR4), TD(SR5),
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                               KC_NO, KC_NO,
+                                      KC_NO,   KC_NO, KC_NO,
+                                      KC_NO,   KC_NO, KC_NO,
   // right hand
-  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-  KC_NO,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11,
-         LGUI_6, LGUI_7, LGUI_8, LGUI_9, LGUI_0, KC_F12,
-  KC_NO, SGUI_6, SGUI_7, SGUI_8, SGUI_9, SGUI_0,  KC_NO,
-                  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
-  KC_NO,  KC_NO,
-  KC_NO, OSL(6),  KC_NO,
-  KC_NO,  KC_NO,  KC_NO
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,
+  KC_NO,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F11,
+         TD(SR6), TD(SR7), TD(SR8), TD(SR9), TD(SR0), KC_F12,
+  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,
+                    KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_NO,
+  KC_NO,   KC_NO,
+  KC_NO,  OSL(6),   KC_NO,
+  KC_NO,   KC_NO,   KC_NO
 )
 };
 
@@ -514,7 +528,7 @@ uint8_t cur_dance(qk_tap_dance_state_t *state) {
     } else if (state->count == 3) {
         if (state->interrupted || !state->pressed) return TRIPLE_TAP;
         else return TRIPLE_HOLD;
-    } else return 8;
+    } else return NOOP;
 }
 
 // Create an instance of 'tap' for the 'r1' tap dance.
@@ -548,6 +562,16 @@ void r1_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+    [SR1] = MY_CUSTOM_ACTION_TAPDANCE(KC_1),
+    [SR2] = MY_CUSTOM_ACTION_TAPDANCE(KC_2),
+    [SR3] = MY_CUSTOM_ACTION_TAPDANCE(KC_3),
+    [SR4] = MY_CUSTOM_ACTION_TAPDANCE(KC_4),
+    [SR5] = MY_CUSTOM_ACTION_TAPDANCE(KC_5),
+    [SR6] = MY_CUSTOM_ACTION_TAPDANCE(KC_6),
+    [SR7] = MY_CUSTOM_ACTION_TAPDANCE(KC_7),
+    [SR8] = MY_CUSTOM_ACTION_TAPDANCE(KC_8),
+    [SR9] = MY_CUSTOM_ACTION_TAPDANCE(KC_9),
+    [SR0] = MY_CUSTOM_ACTION_TAPDANCE(KC_0),
     [R1_TAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, r1_finished, r1_reset)
 };
 
