@@ -178,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_PIPE,
       KC_CLCK,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
       KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(6),   TG(4),    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
-                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI, RGB_MODE_XMAS,  RGB_TOG
+                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI, _______, _______
     ),
  /*
   * 1 - Symbols
@@ -412,3 +412,40 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
+
+// Light LEDs 0 to 19 red when caps lock is active. Hard to ignore!
+const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 20, HSV_RED} // Light 20 LEDs, starting with LED 0
+);
+/* // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active */
+/* const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( */
+/*     {9, 2, HSV_CYAN} */
+/* ); */
+/* // Light LEDs 11 & 12 in purple when keyboard layer 2 is active */
+/* const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( */
+/*     {11, 2, HSV_PURPLE} */
+/* ); */
+
+// Now define the array of layers. Later layers take precedence
+const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+    my_capslock_layer //,
+    /* my_layer1_layer,    // Overrides caps lock layer */
+    /* my_layer2_layer     // Overrides other layers */
+);
+
+void keyboard_post_init_user(void) {
+    // Enable the LED layers
+    rgblight_layers = my_rgb_layers;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Both layers will light up if both kb layers are active
+    /* rgblight_set_layer_state(1, layer_state_cmp(state, 1)); */
+    /* rgblight_set_layer_state(2, layer_state_cmp(state, 2)); */
+    return state;
+}
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
