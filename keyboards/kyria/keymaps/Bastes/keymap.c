@@ -194,10 +194,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                        `----------------------------------'  `----------------------------------'
   */
     [_SYMBOLS] = LAYOUT(
-      _______, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR,   KC_P7,   KC_P8,  KC_P9, KC_PAST, KC_NLCK,
-      _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,   KC_P4,   KC_P5,  KC_P6, KC_PPLS,  KC_INS,
-      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,   KC_P1,   KC_P2,  KC_P3,  KC_EQL, _______,
-                                 _______, _______, _______, _______, _______, _______, _______,   KC_P0, _______, _______
+      _______, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR,    KC_7,    KC_8,    KC_9, KC_PAST, KC_NLCK,
+      _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,    KC_4,    KC_5,    KC_6, KC_PPLS,  KC_INS,
+      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
+                                 _______, _______, _______, _______, _______, _______, _______,    KC_0, _______, _______
     ),
  /*
   * 2 - Media & Mouse
