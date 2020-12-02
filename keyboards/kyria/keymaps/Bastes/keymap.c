@@ -260,19 +260,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * 5 - Arrows & Movements
   *
   * ,-------------------------------------------.                              ,-------------------------------------------.
-  * |        |      | Home |   ^  |  End | PgUp |                              |      |      |      |      |      |        |
+  * |        |      | Home |   ^  |  End | PgUp |                              | MOD> | Hue+ | Sat+ | Val+ |      |        |
   * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
-  * |        |      |  <=  |   v  |  =>  | PgDn |                              |      |      |      |      |      |        |
+  * |        |      |  <=  |   v  |  =>  | PgDn |                              | <MOD | Hue- | Sat- | Val- |      |        |
   * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
-  * |        |      |      |      |      |      |  Esc |      |  |      |      |      |      |      |      |      |        |
+  * |        |      |      |      |      |      |  Esc |      |  |      |      | LEDs |      |      |      |      |        |
   * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
   *                        |      |      |      | PTab | NTab |  |  L5  |      |      |      |      |
   *                        `----------------------------------'  `----------------------------------'
   */
      [_ARROWS] = LAYOUT(
-       _______, _______, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                                     _______, _______, _______, _______, _______, _______,
-       _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     _______, _______, _______, _______, _______, _______,
-       _______, _______, _______, _______, _______, _______,  KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                                     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,
+       _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                    RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,
+       _______, _______, _______, _______, _______, _______,  KC_ESC, _______, _______, _______, RGB_TOG, _______, _______, _______, _______, _______,
                                   _______, _______, _______,   SPTAB,   SNTAB,   TG(5), _______, _______, _______, _______
      ),
  /*
@@ -412,40 +412,3 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
 }
 #endif
-
-// Light LEDs 0 to 19 red when caps lock is active. Hard to ignore!
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 20, HSV_RED} // Light 20 LEDs, starting with LED 0
-);
-/* // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active */
-/* const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS( */
-/*     {9, 2, HSV_CYAN} */
-/* ); */
-/* // Light LEDs 11 & 12 in purple when keyboard layer 2 is active */
-/* const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS( */
-/*     {11, 2, HSV_PURPLE} */
-/* ); */
-
-// Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_capslock_layer //,
-    /* my_layer1_layer,    // Overrides caps lock layer */
-    /* my_layer2_layer     // Overrides other layers */
-);
-
-void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Both layers will light up if both kb layers are active
-    /* rgblight_set_layer_state(1, layer_state_cmp(state, 1)); */
-    /* rgblight_set_layer_state(2, layer_state_cmp(state, 2)); */
-    return state;
-}
-
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
-    return true;
-}
