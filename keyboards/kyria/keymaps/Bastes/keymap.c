@@ -225,7 +225,6 @@ void tap_and_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
           break;
         case SINGLE_HOLD:
           layer_on(6);
-          register_mods(MOD_BIT(KC_LALT));
           break;
         case DOUBLE_TAP:
           set_oneshot_mods(MOD_BIT(KC_LGUI));
@@ -243,7 +242,6 @@ void tap_and_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
           break;
         case SINGLE_HOLD:
-          unregister_mods(MOD_BIT(KC_LALT));
           layer_off(6);
           break;
         case DOUBLE_TAP:
