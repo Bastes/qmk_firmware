@@ -218,21 +218,41 @@ void tap_and_hold_finished(qk_tap_dance_state_t *state, void *user_data);
 void tap_and_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
     tap_and_hold_state.state = cur_dance(state);
     switch (tap_and_hold_state.state) {
-        case SINGLE_TAP: layer_on(6); set_oneshot_layer(6, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
-        case SINGLE_HOLD: layer_on(6); register_mods(MOD_BIT(KC_LALT)); break;
-        case DOUBLE_TAP: set_oneshot_mods(MOD_BIT(KC_LGUI)); break;
-        case DOUBLE_HOLD: register_mods(MOD_BIT(KC_LGUI)); break;
-        case NOOP: break;
+        case SINGLE_TAP:
+          layer_on(6);
+          set_oneshot_layer(6, ONESHOT_START);
+          clear_oneshot_layer_state(ONESHOT_PRESSED);
+          break;
+        case SINGLE_HOLD:
+          layer_on(6);
+          register_mods(MOD_BIT(KC_LALT));
+          break;
+        case DOUBLE_TAP:
+          set_oneshot_mods(MOD_BIT(KC_LGUI));
+          break;
+        case DOUBLE_HOLD:
+          register_mods(MOD_BIT(KC_LGUI));
+          break;
+        case NOOP:
+          break;
     }
 }
 void tap_and_hold_reset(qk_tap_dance_state_t *state, void *user_data);
 void tap_and_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (tap_and_hold_state.state) {
-        case SINGLE_TAP: break;
-        case SINGLE_HOLD: unregister_mods(MOD_BIT(KC_LALT)); layer_off(6); break;
-        case DOUBLE_TAP: break;
-        case DOUBLE_HOLD: unregister_mods(MOD_BIT(KC_LGUI)); break;
-        case NOOP: break;
+        case SINGLE_TAP:
+          break;
+        case SINGLE_HOLD:
+          unregister_mods(MOD_BIT(KC_LALT));
+          layer_off(6);
+          break;
+        case DOUBLE_TAP:
+          break;
+        case DOUBLE_HOLD:
+          unregister_mods(MOD_BIT(KC_LGUI));
+          break;
+        case NOOP:
+          break;
     }
     tap_and_hold_state.state = 0;
 }
