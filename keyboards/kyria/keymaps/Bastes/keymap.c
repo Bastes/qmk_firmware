@@ -21,8 +21,7 @@ enum layers {
   _MEDIA,      // media keys
   _FRENCH,     // fucking french accented chars
   _FPS,        // fps-oriented layout
-  _ARROWS,     // Keymap 5: Arrow Layer
-  _REGOLITH_F, // Keymap 6: Regolith & FXX
+  _ARROWS      // Keymap 5: Arrow Layer
 };
 
 #define RGB_DI_PIN D3
@@ -61,7 +60,6 @@ enum layers {
 # define COMM_L1 LT(1, KC_COMM)
 # define DOT_ALT LALT_T(KC_DOT)
 # define SLS_CTL RCTL_T(KC_SLSH)
-# define TAP_REG TD(TAP_REGOLITH)
 
 enum unicode_names {
   ACIRCL,
@@ -141,137 +139,6 @@ const uint32_t PROGMEM unicode_map[] = {
   [UUMLU]   = 0x00DC
 };
 
-////////////////////////////////////////////////////////////////////////////////
-// BEGIN tap dances
-
-// Tap dances
-enum {
-    SR1,
-    SR2,
-    SR3,
-    SR4,
-    SR5,
-    SR6,
-    SR7,
-    SR8,
-    SR9,
-    SR0,
-    TAP_REGOLITH
-};
-
-// Tap dance modes
-enum {
-    SINGLE_TAP,
-    SINGLE_HOLD,
-    DOUBLE_TAP,
-    DOUBLE_HOLD,
-    DOUBLE_SINGLE_TAP,
-    NOOP
-};
-
-typedef struct {
-    uint16_t kc;
-} qk_tap_dance_regolith_t;
-
-void tapdance_regolith_finished(qk_tap_dance_state_t *state, void *user_data) {
-    qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
-
-    if (state->count == 1) {
-        tap_code16(LGUI(pair->kc));
-    } else if (state->count == 2) {
-        tap_code16(LGUI(LALT(pair->kc)));
-    } else if (state->count == 3) {
-        tap_code16(LGUI(LSFT(pair->kc)));
-    }
-}
-
-#define MY_CUSTOM_ACTION_TAPDANCE(keycode) {  \
-    .fn = { NULL, NULL, (void *)tapdance_regolith_finished }, \
-    .user_data = (void *)&((qk_tap_dance_regolith_t) { keycode }),  \
-  }
-
-
-typedef struct {
-    bool is_press_action;
-    uint8_t state;
-} tap_and_hold;
-
-// Create an instance of 'tap' for the 'r1' tap dance.
-static tap_and_hold tap_and_hold_state = {
-    .is_press_action = true,
-    .state = 0
-};
-
-uint8_t cur_dance(qk_tap_dance_state_t *state);
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return SINGLE_TAP;
-        else return SINGLE_HOLD;
-    } else if (state->count == 2) {
-        if (state->interrupted || !state->pressed) return DOUBLE_TAP;
-        else return DOUBLE_HOLD;
-    } else return NOOP;
-}
-
-// For the x tap dance. Put it here so it can be used in any keymap
-void tap_and_hold_finished(qk_tap_dance_state_t *state, void *user_data);
-void tap_and_hold_finished(qk_tap_dance_state_t *state, void *user_data) {
-    tap_and_hold_state.state = cur_dance(state);
-    switch (tap_and_hold_state.state) {
-        case SINGLE_TAP:
-          layer_on(6);
-          set_oneshot_layer(6, ONESHOT_START);
-          clear_oneshot_layer_state(ONESHOT_PRESSED);
-          break;
-        case SINGLE_HOLD:
-          layer_on(6);
-          break;
-        case DOUBLE_TAP:
-          set_oneshot_mods(MOD_BIT(KC_LGUI));
-          break;
-        case DOUBLE_HOLD:
-          register_mods(MOD_BIT(KC_LGUI));
-          break;
-        case NOOP:
-          break;
-    }
-}
-void tap_and_hold_reset(qk_tap_dance_state_t *state, void *user_data);
-void tap_and_hold_reset(qk_tap_dance_state_t *state, void *user_data) {
-    switch (tap_and_hold_state.state) {
-        case SINGLE_TAP:
-          break;
-        case SINGLE_HOLD:
-          layer_off(6);
-          break;
-        case DOUBLE_TAP:
-          break;
-        case DOUBLE_HOLD:
-          unregister_mods(MOD_BIT(KC_LGUI));
-          break;
-        case NOOP:
-          break;
-    }
-    tap_and_hold_state.state = 0;
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [SR1] = MY_CUSTOM_ACTION_TAPDANCE(KC_1),
-    [SR2] = MY_CUSTOM_ACTION_TAPDANCE(KC_2),
-    [SR3] = MY_CUSTOM_ACTION_TAPDANCE(KC_3),
-    [SR4] = MY_CUSTOM_ACTION_TAPDANCE(KC_4),
-    [SR5] = MY_CUSTOM_ACTION_TAPDANCE(KC_5),
-    [SR6] = MY_CUSTOM_ACTION_TAPDANCE(KC_6),
-    [SR7] = MY_CUSTOM_ACTION_TAPDANCE(KC_7),
-    [SR8] = MY_CUSTOM_ACTION_TAPDANCE(KC_8),
-    [SR9] = MY_CUSTOM_ACTION_TAPDANCE(KC_9),
-    [SR0] = MY_CUSTOM_ACTION_TAPDANCE(KC_0),
-    [TAP_REGOLITH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_and_hold_finished, tap_and_hold_reset)
-};
-
-// END tap dances
-////////////////////////////////////////////////////////////////////////////////
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * 0 - QWERTY
@@ -281,16 +148,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |  A   |  S   |  D   |  F   |  G   |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |  TL4 |      |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |  TL4 | CLck |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |  OS* | Space|BckSpc|  |  *L5 | Enter|  OS* |      |      |
+ *                        |      |      |  OS  | Space|BckSpc|  |  *L5 | Enter|  OS* |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
       _______,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
-      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(4), _______,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
-                                 _______, _______, TAP_REG,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, TAP_REG, _______, _______
+      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(4), KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
+                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI, _______, _______
     ),
 /*
  * 1 - Symbols
@@ -300,7 +167,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |   #  |   $  |   (  |   )  |   `  |                              |   -  |   4  |   5  |   6  |   +  | Insert |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | CapsLk |   %  |   ^  |   [  |   ]  |   ~  |      |      |  |      |      |   _  |   1  |   2  |   3  |   =  |        |
+ * |        |   %  |   ^  |   [  |   ]  |   ~  |      |      |  |      |      |   _  |   1  |   2  |   3  |   =  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      |      |      |  |      |      |   0  |      |      |
  *                        `----------------------------------'  `----------------------------------'
@@ -308,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_SYMBOLS] = LAYOUT(
       _______, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR,    KC_7,    KC_8,    KC_9, KC_PAST, KC_NLCK,
       _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,    KC_4,    KC_5,    KC_6, KC_PPLS,  KC_INS,
-      KC_CLCK, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
+      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
                                  _______, _______, _______, _______, _______, _______, _______,    KC_0, _______, _______
     ),
 /*
@@ -387,25 +254,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______,   SPTAB, _______,   SNTAB, _______, _______, _______, _______, _______, RGB_TOG, _______, _______, _______, _______, _______,
                                   _______, _______, _______, _______, _______,   TG(5), _______, _______, _______, _______
      ),
-/*
- * 6 - Regolith & FXX
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |                              |      |  R7  |  R8  |  R9  |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  F6  |  F7  |  F8  |  F9  | F10  |                              |      |  R4  |  R5  |  R6  |      |        |
- * |--------+------+------+------+------+------|-------------.  ,-------------|------+------+------+------+------+--------|
- * |        |      |      |      | F11  | F12  |      |      |  |      |      |      |  R1  |  R2  |  R3  |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |  R0  |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-     [_REGOLITH_F] = LAYOUT(
-       _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                     _______, TD(SR7), TD(SR8), TD(SR9), _______, _______,
-       _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,                                     _______, TD(SR4), TD(SR5), TD(SR6), _______, _______,
-       _______, _______, _______, _______,  KC_F11,  KC_F12, _______, _______, _______, _______, _______, TD(SR1), TD(SR2), TD(SR3), _______, _______,
-                                  _______, _______, _______, _______, _______, _______, _______, TD(SR0), _______, _______
-     ),
 // /*
 //  * Layer template
 //  *
@@ -480,9 +328,6 @@ static void render_status(void) {
             break;
         case _ARROWS:
             oled_write_P(PSTR("Arrows\n"), false);
-            break;
-        case _REGOLITH_F:
-            oled_write_P(PSTR("Regolith\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
