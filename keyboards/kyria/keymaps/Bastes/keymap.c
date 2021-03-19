@@ -20,8 +20,8 @@ enum layers {
   _SYMBOLS,    // symbols
   _MEDIA,      // media keys
   _FRENCH,     // fucking french accented chars
-  _FPS,        // fps-oriented layout
-  _ARROWS      // Keymap 5: Arrow Layer
+  _ARROWS,     // Keymap 5: Arrow Layer
+  _FPS         // fps-oriented layout
 };
 
 #define RGB_DI_PIN D3
@@ -156,8 +156,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
       _______,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
-      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(4), KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
-                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI, _______, _______
+      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(5), KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
+                                 _______, _______, KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI, _______, _______
     ),
 /*
  * 1 - Symbols
@@ -217,26 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______, _______, _______,   NBSPC, _______, _______, _______, _______, _______, _______
      ),
 /*
- * 4 - FPS (classic QWERTY)
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |   Tab  |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  \ |   |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | CapsLk |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |  ; : |  ' "   |
- * |--------+------+------+------+------+------|-------------.  ,-------------|------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |  Esc |  Del |  |  L4  |      |   N  |   M  |  , < |  . > |  / ? | RShift |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- *                        |      |      |      | Space|Bckspc|  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
-     [_FPS] = LAYOUT(
-        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
-       KC_CLCK,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
-         KC_LS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TG(4), _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_RS,
-                                  _______, _______, _______,  KC_SPC, KC_BSPC, _______, _______, _______, _______, _______
-     ),
-/*
- * 5 - Arrows & Movements
+ * 4 - Arrows & Movements
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |        |      | Home |   ^  |  End | PgUp |                              | MOD> | Hue+ | Sat+ | Val+ |      |        |
@@ -252,7 +233,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        _______, _______, KC_HOME,   KC_UP,  KC_END, KC_PGUP,                                     RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______,
        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                    RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______,
        _______, _______,   SPTAB, _______,   SNTAB, _______, _______, _______, _______, _______, RGB_TOG, _______, _______, _______, _______, _______,
-                                  _______, _______, _______, _______, _______,   TG(5), _______, _______, _______, _______
+                                  _______, _______, _______, _______, _______,   TG(4), _______, _______, _______, _______
+     ),
+/*
+ * 5 - FPS (classic QWERTY)
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |   Tab  |   Q  |   W  |   E  |   R  |   T  |                              |   Y  |   U  |   I  |   O  |   P  |  \ |   |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * | CapsLk |   A  |   S  |   D  |   F  |   G  |                              |   H  |   J  |   K  |   L  |  ; : |  ' "   |
+ * |--------+------+------+------+------+------|-------------.  ,-------------|------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |  Esc |  Del |  |  L4  |      |   N  |   M  |  , < |  . > |  / ? | RShift |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ *                        |      |      |      | Space|Bckspc|  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+     [_FPS] = LAYOUT(
+        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
+       KC_CLCK,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+         KC_LS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TG(5), _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_RS,
+                                  _______, _______, _______,  KC_SPC, KC_BSPC, _______, _______, _______, _______, _______
      ),
 // /*
 //  * Layer template
@@ -323,11 +323,11 @@ static void render_status(void) {
         case _FRENCH:
             oled_write_P(PSTR("French\n"), false);
             break;
-        case _FPS:
-            oled_write_P(PSTR("FPS\n"), false);
-            break;
         case _ARROWS:
             oled_write_P(PSTR("Arrows\n"), false);
+            break;
+        case _FPS:
+            oled_write_P(PSTR("FPS\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
