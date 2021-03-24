@@ -48,3 +48,6 @@
 
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LED_MAP { 0, 1, 2, 9, 8, 7, 4, 3, 5, 6, 19, 18, 17, 10, 11, 12, 15, 16, 14, 13 }
+
+// Using the right side as the master
+#define MASTER_RIGHT
