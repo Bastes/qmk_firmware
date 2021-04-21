@@ -31,6 +31,7 @@ enum layers {
 # define KC_LS KC_LSFT
 # define KC_RS KC_RSFT
 # define NBSPC X(NBSP)
+# define X_DEG X(DEGREE)
 # define XP_AC XP(ACIRCL, ACIRCU)
 # define XP_AE XP(AELIGL, AELIGU)
 # define XP_AG XP(AGRAVL, AGRAVU)
@@ -72,6 +73,7 @@ enum unicode_names {
   AUMLU,
   CCEDL,
   CCEDU,
+  DEGREE,
   EACUTEL,
   EACUTEU,
   ECIRCL,
@@ -111,6 +113,7 @@ const uint32_t PROGMEM unicode_map[] = {
   [AUMLU]   = 0x00C4,
   [CCEDL]   = 0x00E7,
   [CCEDU]   = 0x00C7,
+  [DEGREE]  = 0x00B0,
   [EACUTEL] = 0x00E9,
   [EACUTEU] = 0x00C9,
   [ECIRCL]  = 0x00EA,
@@ -201,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 3 - Fucking french accented chars
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | Æ  æ | Ê  ê | É  é | È  è |      |                              | Û  û | Ù  ù | Î  î | Ô  ô | Œ  œ |        |
+ * |        | Æ  æ | Ê  ê | É  é | È  è |   °  |                              | Û  û | Ù  ù | Î  î | Ô  ô | Œ  œ |        |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | À  à | Â  â | Ë  ë |    € |      |                              |      | Ü  ü | Ï  ï | Ö  ö |      |        |
  * |--------+------+------+------+------+------|-------------.  ,-------------|------+------+------+------+------+--------|
@@ -211,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
      [_FRENCH] = LAYOUT(
-       _______,   XP_AE,   XP_EC,   XP_EA,   XP_EG, _______,                                       XP_UC,   XP_UG,   XP_IC,   XP_OC,   XP_OE, _______,
+       _______,   XP_AE,   XP_EC,   XP_EA,   XP_EG,   X_DEG,                                       XP_UC,   XP_UG,   XP_IC,   XP_OC,   XP_OE, _______,
        _______,   XP_AG,   XP_AC,   XP_EU,   X_EUR, _______,                                     _______,   XP_UU,   XP_IU,   XP_OU, _______, _______,
        _______,   XP_AU, _______,   XP_CC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                   _______, _______, _______,   NBSPC, _______, _______, _______, _______, _______, _______
