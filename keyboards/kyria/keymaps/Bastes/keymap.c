@@ -44,6 +44,7 @@ enum layers {
 # define X_EUR X(EURO)
 # define XP_IC XP(ICIRCL, ICIRCU)
 # define XP_IU XP(IUMLL, IUMLU)
+# define XP_NT XP(NTLDL, NTLDU)
 # define XP_OC XP(OCIRCL,OCIRCU)
 # define XP_OE XP(OELIGL,OELIGU)
 # define XP_OU XP(OUMLL, OUMLU)
@@ -88,6 +89,8 @@ enum unicode_names {
   IUMLL,
   IUMLU,
   NBSP,
+  NTLDL,
+  NTLDU,
   OCIRCL,
   OCIRCU,
   OELIGL,
@@ -128,6 +131,8 @@ const uint32_t PROGMEM unicode_map[] = {
   [IUMLL]   = 0x00EF,
   [IUMLU]   = 0x00CF,
   [NBSP]    = 0x00A0,
+  [NTLDL]   = 0x00F1,
+  [NTLDU]   = 0x00D1,
   [OCIRCL]  = 0x00F4,
   [OCIRCU]  = 0x00D4,
   [OELIGL]  = 0x0153,
@@ -208,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | À  à | Â  â | Ë  ë |    € |      |                              |      | Ü  ü | Ï  ï | Ö  ö |      |        |
  * |--------+------+------+------+------+------|-------------.  ,-------------|------+------+------+------+------+--------|
- * |        | Ä  ä |      | Ç  ç |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * |        | Ä  ä |      | Ç  ç |      |      |      |      |  |      |      | Ñ  ñ |      |      |      |      |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      |      |      | NbSp |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
@@ -216,7 +221,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      [_FRENCH] = LAYOUT(
        _______,   XP_AE,   XP_EC,   XP_EA,   XP_EG,   X_DEG,                                       XP_UC,   XP_UG,   XP_IC,   XP_OC,   XP_OE, _______,
        _______,   XP_AG,   XP_AC,   XP_EU,   X_EUR, _______,                                     _______,   XP_UU,   XP_IU,   XP_OU, _______, _______,
-       _______,   XP_AU, _______,   XP_CC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+       _______,   XP_AU, _______,   XP_CC, _______, _______, _______, _______, _______, _______,   XP_NT, _______, _______, _______, _______, _______,
                                   _______, _______, _______,   NBSPC, _______, _______, _______, _______, _______, _______
      ),
 /*
