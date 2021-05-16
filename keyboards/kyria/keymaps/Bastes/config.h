@@ -51,3 +51,6 @@
 
 // Using the right side as the master
 #define MASTER_RIGHT
+
+// Using rotary encoders
+#define ENCODER_RESOLUTION 2
