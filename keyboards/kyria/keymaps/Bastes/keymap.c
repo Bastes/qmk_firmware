@@ -362,9 +362,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Page up/Page down
         if (clockwise) {
-            tap_code(KC_WH_U);
+            tap_code16(KC_PGUP);
         } else {
-            tap_code(KC_WH_D);
+            tap_code16(KC_PGDOWN);
         }
     }
     else if (index == 1) {
