@@ -1,4 +1,5 @@
 OLED_DRIVER_ENABLE = yes   # Enables the use of OLED displays
-ENCODER_ENABLE = yes        # Enables the use of one or more encoders
-RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
-TAP_DANCE_ENABLE = no      # Enable custom tap dance actions
+ENCODER_ENABLE = yes       # Enables the use of one or more encoders
+RGBLIGHT_ENABLE = yes      # Enables keyboard RGB underglow
+TAP_DANCE_ENABLE = no      # Enables custom tap dance actions
+EXTRAFLAGS += -flto        # Limit Time Optimization shoud save space (?)
