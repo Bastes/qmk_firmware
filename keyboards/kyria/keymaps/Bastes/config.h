@@ -27,10 +27,6 @@
   #define RGBLIGHT_VAL_STEP 8
 #endif
 
-#ifdef COMBO_ENABLE
-  #define COMBO_COUNT 1
-#endif
-
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
 // #define SPLIT_USB_DETECT
 // #define NO_USB_STARTUP_CHECK

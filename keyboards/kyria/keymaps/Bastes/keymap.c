@@ -147,9 +147,6 @@ const uint32_t PROGMEM unicode_map[] = {
   [UUMLU]   = 0x00DC
 };
 
-const uint16_t PROGMEM test_combo[] = {KC_A, KC_B, COMBO_END};
-combo_t key_combos[COMBO_COUNT] = {COMBO(test_combo, KC_ESC)};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * 0 - QWERTY
