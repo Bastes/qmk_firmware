@@ -166,16 +166,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |  *L2 | CLck |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  |      | Mute |
+ *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  | *L2  | Mute |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
       _______,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
-      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(2), KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
-                                 _______,   TT(5), KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI, _______, KC_MUTE
+      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
+                                 _______,   TT(5), KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
     ),
 /*
  * 1 - Symbols
@@ -204,16 +204,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|MsWhDn|                              |      | Prev | Play | Next |      |        |
  * |--------+------+------+------+------+------|-------------.  ,-------------|------+------+------+------+------+--------|
- * |        | LCtl | LAlt |      |      |      |      | MClk |  |      |      |      |      |      |      |      |        |
+ * |        | LCtl | LAlt |      |      |      |BBack | BFwd |  |      |      |      | Mute |VolDn |VolUp |      |        |
  * `----------------------+------+------+------+------|------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      | LClk | RClk |  |BBack | BFwd | Mute |VolDn |VolUp |
+ *                        |      |      | MClk | LClk | RClk |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
      [_MEDIA] = LAYOUT(
        _______, _______, KC_WH_L, KC_MS_U, KC_WH_R, KC_WH_U,                                     _______, _______, _______, _______, _______, _______,
-       _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                                     _______, _______, _______, _______, _______, _______,
-       _______, KC_LCTL, KC_LALT, _______, _______, _______, _______, KC_BTN3, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
-                                  _______, _______, _______, KC_BTN1, KC_BTN2, KC_WBAK, KC_WFWD, KC_MUTE, KC_VOLD, KC_VOLU
+       _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                                     _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
+       _______, KC_LCTL, KC_LALT, _______, _______, _______, KC_WBAK, KC_WFWD, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
+                                  _______, _______, KC_BTN3, KC_BTN1, KC_BTN2, KC_WBAK, KC_WFWD, _______, _______, _______
      ),
 /*
  * 3 - Fucking french accented chars
