@@ -53,6 +53,16 @@ enum layers {
 # define XP_UU XP(UUMLL, UUMLU)
 # define SNTAB LCTL(KC_PGDOWN)
 # define SPTAB LCTL(KC_PGUP)
+# define A_LSH LSFT_T(KC_A)
+# define S_CTL LCTL_T(KC_S)
+# define D_ALT LALT_T(KC_D)
+# define F_L1 LT(1, KC_F)
+# define G_L3 LT(3, KC_G)
+# define H_L3 LT(3, KC_H)
+# define J_L1 LT(1, KC_J)
+# define K_ALT LALT_T(KC_K)
+# define L_CTL RCTL_T(KC_L)
+# define SC_RSH RSFT_T(KC_SCLN)
 # define Z_CTL LCTL_T(KC_Z)
 # define X_ALT LALT_T(KC_X)
 # define C_L1 LT(1, KC_C)
@@ -154,17 +164,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |   Tab  |  Q   |  W   |  E   |  R   |  T   |                              |   Y  |   U  |   I  |   O  |   P  |  \ |   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |  A   |  S   |  D   |  F   |  G   |                              |   H  |   J  |   K  |   L  | ;  : |  ' "   |
+ * |        | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |  *L2 | CLck |   N  |   M  | ,  < | . >  | /  ? | RShift |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | TL5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  |      | Mute |
+ *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  |      | Mute |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
-      _______,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                        KC_H,    KC_J,    KC_K,    KC_L, SCLN_L2, KC_QUOT,
-      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
+      _______,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
+      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL,   TT(2), KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
                                  _______,   TT(5), KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI, _______, KC_MUTE
     ),
 /*
