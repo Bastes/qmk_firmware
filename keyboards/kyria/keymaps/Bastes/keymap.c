@@ -63,15 +63,6 @@ enum layers {
 # define K_ALT LALT_T(KC_K)
 # define L_CTL RCTL_T(KC_L)
 # define SC_RSH RSFT_T(KC_SCLN)
-# define Z_CTL LCTL_T(KC_Z)
-# define X_ALT LALT_T(KC_X)
-# define C_L1 LT(1, KC_C)
-# define V_L3 LT(3, KC_V)
-# define SCLN_L2 LT(2,KC_SCLN)
-# define M_L3 LT(3, KC_M)
-# define COMM_L1 LT(1, KC_COMM)
-# define DOT_ALT LALT_T(KC_DOT)
-# define SLS_CTL RCTL_T(KC_SLSH)
 
 enum unicode_names {
   ACIRCL,
@@ -166,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | LShift | Z/LCl| X/Alt| C/L1 | V/L3 |  B   |  ESC |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? | RShift |
+ * |        |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  | *L2  | Mute |
  *                        `----------------------------------'  `----------------------------------'
@@ -174,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
       _______,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
-      KC_LSFT,   Z_CTL,   X_ALT,    C_L1,    V_L3,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CLCK,    KC_N,    M_L3, COMM_L1, DOT_ALT, SLS_CTL, KC_RSFT,
+      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CLCK,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, _______,
                                  _______,   TT(5), KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
     ),
 /*
