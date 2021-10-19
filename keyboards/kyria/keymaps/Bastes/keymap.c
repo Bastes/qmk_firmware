@@ -382,22 +382,37 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 #ifdef RGBLIGHT_ENABLE
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    { 0, 3, HSV_RED},
-    { 9, 1, HSV_RED},
-    {17, 3, HSV_RED},
-    {10, 1, HSV_RED}
+    { 0, 20, HSV_RED}
 );
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { 0, 3, HSV_CYAN},
     { 9, 1, HSV_CYAN},
-    {10, 1, HSV_CYAN}
+    {10, 1, HSV_CYAN},
+    {17, 3, HSV_CYAN}
 );
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { 0, 3, HSV_PURPLE},
     { 9, 1, HSV_PURPLE},
-    {10, 1, HSV_PURPLE}
+    {10, 1, HSV_PURPLE},
+    {17, 3, HSV_PURPLE}
 );
 const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { 0, 3, HSV_GREEN},
     { 9, 1, HSV_GREEN},
-    {10, 1, HSV_GREEN}
+    {10, 1, HSV_GREEN},
+    {17, 3, HSV_GREEN}
+);
+const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { 0, 3, HSV_ORANGE},
+    { 9, 1, HSV_ORANGE},
+    {10, 1, HSV_ORANGE},
+    {17, 3, HSV_ORANGE}
+);
+const rgblight_segment_t PROGMEM my_layer6_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    { 0, 3, HSV_PINK},
+    { 9, 1, HSV_PINK},
+    {10, 1, HSV_PINK},
+    {17, 3, HSV_PINK}
 );
 
 // Now define the array of layers. Later layers take precedence
@@ -405,7 +420,9 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_capslock_layer, // Overrides caps lock layer
     my_layer2_layer,   // Overrides other layers
     my_layer3_layer,
-    my_layer4_layer
+    my_layer4_layer,
+    my_layer5_layer,
+    my_layer6_layer
 );
 
 void keyboard_post_init_user(void) {
@@ -430,6 +447,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(1, layer_state_cmp(state, _SYMBOLS));
     rgblight_set_layer_state(2, layer_state_cmp(state, _MEDIA));
     rgblight_set_layer_state(3, layer_state_cmp(state, _FRENCH));
+    rgblight_set_layer_state(4, layer_state_cmp(state, _ARROWS));
+    rgblight_set_layer_state(5, layer_state_cmp(state, _FPS));
     return state;
 }
 #endif
