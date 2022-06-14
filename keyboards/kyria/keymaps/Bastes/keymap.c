@@ -263,6 +263,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TG(5), _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_RS,
                                   _______, _______, _______,  KC_SPC, KC_BSPC, _______, _______, _______, _______, _______
      ),
+/*
+ * Ideas for an emoji layer:
+ * :wink:        U+1F609 😉
+ * :thumbsup:    U+1F44D 👍
+ * :thumbsdown:  U+1F44E 👎
+ * :slightsmile: U+1F642 🙂
+ */
+
 // /*
 //  * Layer template
 //  *
