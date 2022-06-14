@@ -363,9 +363,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Page up/Page down
         if (clockwise) {
-            tap_code16(KC_PGUP);
+            tap_code16(KC_BRIGHTNESS_UP);
         } else {
-            tap_code16(KC_PGDOWN);
+            tap_code16(KC_BRIGHTNESS_DOWN);
         }
     }
     else if (index == 1) {
