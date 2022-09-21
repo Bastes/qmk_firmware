@@ -31,6 +31,7 @@ enum layers {
 # define KC_LS KC_LSFT
 # define KC_RS KC_RSFT
 # define NBSPC X(NBSP)
+# define ZWSPC X(ZWSP)
 # define X_DEG X(DEGREE)
 # define XP_AC XP(ACIRCL, ACIRCU)
 # define XP_AE XP(AELIGL, AELIGU)
@@ -105,7 +106,8 @@ enum unicode_names {
   UGRAVL,
   UGRAVU,
   UUMLL,
-  UUMLU
+  UUMLU,
+  ZWSP
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -148,7 +150,8 @@ const uint32_t PROGMEM unicode_map[] = {
   [UGRAVL]  = 0x00F9,
   [UGRAVU]  = 0x00D9,
   [UUMLL]   = 0x00FC,
-  [UUMLU]   = 0x00DC
+  [UUMLU]   = 0x00DC,
+  [ZWSP]    = 0x200B
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -181,14 +184,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
  * |        |   %  |   ^  |   [  |   ]  |   ~  |      |      |  |      |      |   _  |   1  |   2  |   3  |   =  |        |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |   0  |      |      |
+ *                        |      |      |      | ZwSp |      |  |      |      |   0  |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_SYMBOLS] = LAYOUT(
       KC_PSCR, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR,    KC_7,    KC_8,    KC_9, KC_PAST, KC_NLCK,
       _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,    KC_4,    KC_5,    KC_6, KC_PPLS,  KC_INS,
       _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
-                                 _______, _______, _______, _______, _______, _______, _______,    KC_0, _______, _______
+                                 _______, _______, _______,   ZWSPC, _______, _______, _______,    KC_0, _______, _______
     ),
 /*
  * 2 - Media & Mouse
