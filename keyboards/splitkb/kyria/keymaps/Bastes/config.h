@@ -37,3 +37,9 @@
 
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT
+
+// two taps is enough for a dance
+#define TAPPING_TOGGLE 2
+
+// support for Linux and Windows unicode
+#define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX, UNICODE_MODE_WINCOMPOSE
