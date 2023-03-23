@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? |        |
+ * |        |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? |    :   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  | *L2  | Mute |
  *                        `----------------------------------'  `----------------------------------'
@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
       _______,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
-      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, _______,
+      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_COLN,
                                  _______,   TT(5), KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
     ),
 /*
@@ -464,6 +464,50 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(4, layer_state_cmp(state, _ARROWS));
     rgblight_set_layer_state(5, layer_state_cmp(state, _FPS));
     return state;
+}
+
+// example from @Bryan.Bennett
+
+void
+reset_rgb_matrix_to_default_layer (void) {
+  rgb_matrix_sethsv_noeeprom(HSV_PURPLE);
+  rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_SIMPLE);
+}
+
+void
+keyboard_post_init_user () {
+  rgb_matrix_enable_noeeprom();
+  reset_rgb_matrix_to_default_layer();
+}
+
+layer_state_t
+layer_state_set_user (layer_state_t state) {
+  layer_state_t new_state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  switch (get_highest_layer(new_state)) {
+  case _QWERTY:
+    reset_rgb_matrix_to_default_layer();
+    break;
+
+  case _LOWER: 
+    rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    break;
+
+  case _RAISE: 
+    rgb_matrix_sethsv_noeeprom(HSV_GREEN);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    break;
+    
+  case _ADJUST: 
+    rgb_matrix_sethsv_noeeprom(HSV_TEAL);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    break;
+
+  default:
+    rgb_matrix_sethsv_noeeprom(HSV_RED);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+  }
+  return new_state;
 }
 #endif
 */
