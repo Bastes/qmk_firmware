@@ -21,7 +21,8 @@ enum layers {
   _MEDIA,      // media keys
   _FRENCH,     // fucking french accented chars
   _ARROWS,     // Keymap 5: Arrow Layer
-  _FPS         // fps-oriented layout
+  _FPS,        // fps-oriented layout
+  _NUMBERS     // layer for manipulating numbers
 };
 
 #define RGB_DI_PIN D3
@@ -164,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
  * |        | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  |      | CLck |   N  |   M  | ,  < | . >  | /  ? |    :   |
+ * |        |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  | *Sym | CLck |   N  |   M  | ,  < | . >  | /  ? |    :   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
  *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  | *L2  | Mute |
  *                        `----------------------------------'  `----------------------------------'
@@ -172,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
       _______,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
-      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL, _______, KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_COLN,
+      _______,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TT(6), KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_COLN,
                                  _______,   TT(5), KC_LGUI,  KC_SPC, KC_BSPC,   TT(4),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
     ),
 /*
@@ -270,6 +271,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_LS,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TG(5), _______,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,   KC_RS,
                                   _______, _______, _______,  KC_SPC, KC_BSPC, _______, _______, _______, _______, _______
      ),
+/*
+ * 6 - Numbers
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |  up  |   7  |   8  |   9  |   *  | NumLck |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              | down |   4  |   5  |   6  |   +  |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |   1  |   2  |   3  |   =  |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |   0  |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+    [_NUMBERS] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                       KC_UP,    KC_7,    KC_8,    KC_9, KC_PAST,  KC_NUM,
+      _______, _______, _______, _______, _______, _______,                                     KC_DOWN,    KC_4,    KC_5,    KC_6, KC_PPLS, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
+                                 _______, _______, _______, _______, _______, _______, _______,    KC_0, _______, _______
+    ),
 /*
  * Ideas for an emoji layer:
  * :wink:        U+1F609 😉
