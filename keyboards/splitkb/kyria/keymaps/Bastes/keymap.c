@@ -509,17 +509,17 @@ layer_state_set_user (layer_state_t state) {
     reset_rgb_matrix_to_default_layer();
     break;
 
-  case _LOWER: 
+  case _LOWER:
     rgb_matrix_sethsv_noeeprom(HSV_ORANGE);
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     break;
 
-  case _RAISE: 
+  case _RAISE:
     rgb_matrix_sethsv_noeeprom(HSV_GREEN);
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     break;
-    
-  case _ADJUST: 
+
+  case _ADJUST:
     rgb_matrix_sethsv_noeeprom(HSV_TEAL);
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     break;
