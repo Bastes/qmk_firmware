@@ -12,3 +12,4 @@ COMMAND_ENABLE = no        # saving space on unused features
 SPACE_CADET_ENABLE = no    # saving space on unused features
 GRAVE_ESC_ENABLE = no      # saving space on unused features
 MAGIC_ENABLE = no          # saving space on unused features
+KEY_LOCK_ENABLE = yes      # Enables key locking
