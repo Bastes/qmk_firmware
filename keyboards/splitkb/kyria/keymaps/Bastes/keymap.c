@@ -32,29 +32,29 @@ enum layers {
 # define KC_LS KC_LSFT
 # define KC_RS KC_RSFT
 # define KC_C_UP LCTL(KC_UP)
-# define NBSPC X(NBSP)
-# define ZWSPC X(ZWSP)
-# define X_DEG X(DEGREE)
-# define XP_AC XP(ACIRCL, ACIRCU)
-# define XP_AE XP(AELIGL, AELIGU)
-# define XP_AG XP(AGRAVL, AGRAVU)
-# define XP_AU XP(AUMLL, AUMLU)
-# define XP_CC XP(CCEDL, CCEDU)
-# define XP_EA XP(EACUTEL, EACUTEU)
-# define XP_EC XP(ECIRCL, ECIRCU)
-# define XP_EG XP(EGRAVL, EGRAVU)
-# define X_ELI X(ELLIPS)
-# define XP_EU XP(EUMLL, EUMLU)
-# define X_EUR X(EURO)
-# define XP_IC XP(ICIRCL, ICIRCU)
-# define XP_IU XP(IUMLL, IUMLU)
-# define XP_NT XP(NTLDL, NTLDU)
-# define XP_OC XP(OCIRCL,OCIRCU)
-# define XP_OE XP(OELIGL,OELIGU)
-# define XP_OU XP(OUMLL, OUMLU)
-# define XP_UC XP(UCIRCL, UCIRCU)
-# define XP_UG XP(UGRAVL, UGRAVU)
-# define XP_UU XP(UUMLL, UUMLU)
+# define NBSPC UC(NBSP)
+# define ZWSPC UC(ZWSP)
+# define UC_DEG UC(DEGREE)
+# define UP_AC UP(ACIRCL, ACIRCU)
+# define UP_AE UP(AELIGL, AELIGU)
+# define UP_AG UP(AGRAVL, AGRAVU)
+# define UP_AU UP(AUMLL, AUMLU)
+# define UP_CC UP(CCEDL, CCEDU)
+# define UP_EA UP(EACUTEL, EACUTEU)
+# define UP_EC UP(ECIRCL, ECIRCU)
+# define UP_EG UP(EGRAVL, EGRAVU)
+# define UC_ELI UC(ELLIPS)
+# define UP_EU UP(EUMLL, EUMLU)
+# define UC_EUR UC(EURO)
+# define UP_IC UP(ICIRCL, ICIRCU)
+# define UP_IU UP(IUMLL, IUMLU)
+# define UP_NT UP(NTLDL, NTLDU)
+# define UP_OC UP(OCIRCL,OCIRCU)
+# define UP_OE UP(OELIGL,OELIGU)
+# define UP_OU UP(OUMLL, OUMLU)
+# define UP_UC UP(UCIRCL, UCIRCU)
+# define UP_UG UP(UGRAVL, UGRAVU)
+# define UP_UU UP(UUMLL, UUMLU)
 # define SNTAB LCTL(KC_PGDN)
 # define SPTAB LCTL(KC_PGUP)
 # define A_LSH LSFT_T(KC_A)
@@ -229,9 +229,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
      [_FRENCH] = LAYOUT(
-       _______,   XP_AE,   XP_EC,   XP_EA,   XP_EG,   X_DEG,                                       XP_UC,   XP_UG,   XP_IC,   XP_OC,   XP_OE, UC_NEXT,
-       _______,   XP_AG,   XP_AC,   XP_EU,   X_EUR, _______,                                     _______,   XP_UU,   XP_IU,   XP_OU, _______, _______,
-       _______,   XP_AU, _______,   XP_CC, _______, _______, _______, _______, _______, _______,   XP_NT, _______, _______,   X_ELI, _______, _______,
+       _______,   UP_AE,   UP_EC,   UP_EA,   UP_EG,  UC_DEG,                                       UP_UC,   UP_UG,   UP_IC,   UP_OC,   UP_OE, UC_NEXT,
+       _______,   UP_AG,   UP_AC,   UP_EU,  UC_EUR, _______,                                     _______,   UP_UU,   UP_IU,   UP_OU, _______, _______,
+       _______,   UP_AU, _______,   UP_CC, _______, _______, _______, _______, _______, _______,   UP_NT, _______, _______,  UC_ELI, _______, _______,
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
      ),
 /*
