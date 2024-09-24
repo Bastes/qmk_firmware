@@ -164,18 +164,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------.                              ,-------------------------------------------.
  * |   Tab  |  Q   |  W   |  E   |  R   |  T   |                              |   Y  |   U  |   I  |   O  |   P  |  \ |   |
  * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
+ * |    [   | A/LSh| S/Ctl| D/Alt| F/Sym| G/Acc|                              | H/Acc| J/Sym| K/Alt| L/Ctl|;:/RSh|  ' "   |
  * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * | C + Up |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  | *Sym | CLck |   N  |   M  | ,  < | . >  | /  ? |    :   |
+ * |    ]   |  Z   |  X   |  C   |  V   |  B   |  Esc |  Del |  | *Sym | CLck |   N  |   M  | ,  < | . >  | /  ? |    :   |
  * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      | *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  | *L2  | Mute |
+ *                        |C + Up| *L5  |  OS  | Space|BckSpc|  |  *L4 | Enter|  OS  | *L2  | Mute |
  *                        `----------------------------------'  `----------------------------------'
  */
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
-      _______,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
-      KC_C_UP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TT(6), KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_COLN,
-                                 _______,   TT(4), KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
+      KC_LBRC,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
+      KC_RBRC,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TT(6), KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_COLN,
+                                 KC_C_UP,   TT(4), KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
     ),
 /*
  * 1 - Symbols
