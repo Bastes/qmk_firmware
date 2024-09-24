@@ -5,6 +5,7 @@ RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by de
 RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
 UNICODEMAP_ENABLE = yes    # Enable unicode maps
 MOUSEKEY_ENABLE = yes      # Enable mouse keys
+SEND_STRING_ENABLE = yes   # Enables send string
 
 EXTRAFLAGS += -flto        # Limit Time Optimization shoud save space (?)
 CONSOLE_ENABLE = no        # saving space on unused features
