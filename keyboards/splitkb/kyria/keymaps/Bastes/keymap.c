@@ -42,6 +42,15 @@ enum layers {
 # define L_CTL RCTL_T(KC_L)
 # define SC_RSH RSFT_T(KC_SCLN)
 
+const uint16_t PROGMEM combo_eacute[] = {KC_E, KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM combo_egrave[] = {KC_E, KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM combo_agrave[] = {A_LSH, KC_I, KC_O, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(combo_eacute, KC_W),
+    COMBO(combo_egrave, KC_R),
+    COMBO(combo_agrave, KC_Q),
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
