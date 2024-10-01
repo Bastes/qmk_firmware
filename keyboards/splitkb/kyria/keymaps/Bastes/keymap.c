@@ -161,10 +161,17 @@ enum custom_keycodes {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    const uint8_t mods = get_mods();
     switch(keycode) {
         case EGRAVE:
             if (record->event.pressed) {
-                SEND_STRING(SS_ALGR("`") "e");
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("`") "E");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("`") "e");
+                }
                 return false;
             }
             break;
