@@ -32,29 +32,6 @@ enum layers {
 # define KC_LS KC_LSFT
 # define KC_RS KC_RSFT
 # define KC_C_UP LCTL(KC_UP)
-# define NBSPC UC(NBSP)
-# define ZWSPC UC(ZWSP)
-# define UC_DEG UC(DEGREE)
-# define UP_AC UP(ACIRCL, ACIRCU)
-# define UP_AE UP(AELIGL, AELIGU)
-# define UP_AG UP(AGRAVL, AGRAVU)
-# define UP_AU UP(AUMLL, AUMLU)
-# define UP_CC UP(CCEDL, CCEDU)
-# define UP_EA UP(EACUTEL, EACUTEU)
-# define UP_EC UP(ECIRCL, ECIRCU)
-# define UP_EG UP(EGRAVL, EGRAVU)
-# define UC_ELI UC(ELLIPS)
-# define UP_EU UP(EUMLL, EUMLU)
-# define UC_EUR UC(EURO)
-# define UP_IC UP(ICIRCL, ICIRCU)
-# define UP_IU UP(IUMLL, IUMLU)
-# define UP_NT UP(NTLDL, NTLDU)
-# define UP_OC UP(OCIRCL,OCIRCU)
-# define UP_OE UP(OELIGL,OELIGU)
-# define UP_OU UP(OUMLL, OUMLU)
-# define UP_UC UP(UCIRCL, UCIRCU)
-# define UP_UG UP(UGRAVL, UGRAVU)
-# define UP_UU UP(UUMLL, UUMLU)
 # define SNTAB LCTL(KC_PGDN)
 # define SPTAB LCTL(KC_PGUP)
 # define A_LSH LSFT_T(KC_A)
@@ -68,102 +45,132 @@ enum layers {
 # define L_CTL RCTL_T(KC_L)
 # define SC_RSH RSFT_T(KC_SCLN)
 
-enum unicode_names {
-  ACIRCL,
-  ACIRCU,
-  AELIGL,
-  AELIGU,
-  AGRAVL,
-  AGRAVU,
-  AUMLL,
-  AUMLU,
-  CCEDL,
-  CCEDU,
-  DEGREE,
-  EACUTEL,
-  EACUTEU,
-  ECIRCL,
-  ECIRCU,
-  EGRAVL,
-  EGRAVU,
-  ELLIPS,
-  EUMLL,
-  EUMLU,
-  EURO,
-  ICIRCL,
-  ICIRCU,
-  IUMLL,
-  IUMLU,
-  NBSP,
-  NTLDL,
-  NTLDU,
-  OCIRCL,
-  OCIRCU,
-  OELIGL,
-  OELIGU,
-  OUMLL,
-  OUMLU,
-  UCIRCL,
-  UCIRCU,
-  UGRAVL,
-  UGRAVU,
-  UUMLL,
-  UUMLU,
-  ZWSP
-};
-
-const uint32_t unicode_map[] PROGMEM = {
-  [ACIRCL]  = 0x00E2,
-  [ACIRCU]  = 0x00C2,
-  [AELIGL]  = 0x00E6,
-  [AELIGU]  = 0x00C6,
-  [AGRAVL]  = 0x00E0,
-  [AGRAVU]  = 0x00C0,
-  [AUMLL]   = 0x00E4,
-  [AUMLU]   = 0x00C4,
-  [CCEDL]   = 0x00E7,
-  [CCEDU]   = 0x00C7,
-  [DEGREE]  = 0x00B0,
-  [EACUTEL] = 0x00E9,
-  [EACUTEU] = 0x00C9,
-  [ECIRCL]  = 0x00EA,
-  [ECIRCU]  = 0x00CA,
-  [EGRAVL]  = 0x00E8,
-  [EGRAVU]  = 0x00C8,
-  [ELLIPS]  = 0x2026,
-  [EUMLL]   = 0x00EB,
-  [EUMLU]   = 0x00CB,
-  [EURO]    = 0x20AC,
-  [ICIRCL]  = 0x00EE,
-  [ICIRCU]  = 0x00CE,
-  [IUMLL]   = 0x00EF,
-  [IUMLU]   = 0x00CF,
-  [NBSP]    = 0x00A0,
-  [NTLDL]   = 0x00F1,
-  [NTLDU]   = 0x00D1,
-  [OCIRCL]  = 0x00F4,
-  [OCIRCU]  = 0x00D4,
-  [OELIGL]  = 0x0153,
-  [OELIGU]  = 0x0152,
-  [OUMLL]   = 0x00F6,
-  [OUMLU]   = 0x00D6,
-  [UCIRCL]  = 0x00FB,
-  [UCIRCU]  = 0x00DB,
-  [UGRAVL]  = 0x00F9,
-  [UGRAVU]  = 0x00D9,
-  [UUMLL]   = 0x00FC,
-  [UUMLU]   = 0x00DC,
-  [ZWSP]    = 0x200B
-};
-
 enum custom_keycodes {
-    EGRAVE,
+    ACIRC,
+    /* AELIG, // ? */
+    AGRAV,
+    AUMLA,
+    CCEDI,
+    /* DEGRE, // ? */
+    EACUT,
+    ECIRC,
+    EGRAV,
+    /* ELLIP, // ? */
+    EUMLA,
+    /* EUROS, // ? */
+    ICIRC,
+    IUMLA,
+    /* NBSPC, // ? */
+    NTILD,
+    OCIRC,
+    /* OELIG, // ? */
+    OUMLA,
+    UCIRC,
+    UGRAV,
+    UUMLA,
+    /* ZWSPC // ? */
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const uint8_t mods = get_mods();
     switch(keycode) {
-        case EGRAVE:
+        case ACIRC:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("^") "A");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("^") "a");
+                }
+                return false;
+            }
+            break;
+        /* case AELIG: */
+        /*     if (record->event.pressed) { */
+        /*         if (mods & MOD_MASK_SHIFT) {  // Is shift held? */
+        /*             unregister_mods(MOD_MASK_SHIFT); */
+        /*             SEND_STRING(SS_ALGR("^") "A"); */
+        /*             register_mods(mods);            // Restore mods. */
+        /*         } else { */
+        /*             SEND_STRING(SS_ALGR("^") "a"); */
+        /*         } */
+        /*         return false; */
+        /*     } */
+        /*     break; */
+        case AGRAV:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("`") "A");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("`") "a");
+                }
+                return false;
+            }
+            break;
+        case AUMLA:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("\"") "A");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("\"") "a");
+                }
+                return false;
+            }
+            break;
+        case CCEDI:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("c") "C");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("c") "c");
+                }
+                return false;
+            }
+            break;
+        /* case DEGRE: */
+        /*     if (record->event.pressed) { */
+        /*         if (mods & MOD_MASK_SHIFT) {  // Is shift held? */
+        /*             unregister_mods(MOD_MASK_SHIFT); */
+        /*             SEND_STRING(SS_ALGR("c") "C"); */
+        /*             register_mods(mods);            // Restore mods. */
+        /*         } else { */
+        /*             SEND_STRING(SS_ALGR("c") "c"); */
+        /*         } */
+        /*         return false; */
+        /*     } */
+        /*     break; */
+        case EACUT:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("'") "E");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("'") "e");
+                }
+                return false;
+            }
+            break;
+        case ECIRC:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("^") "E");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("^") "e");
+                }
+                return false;
+            }
+            break;
+        case EGRAV:
             if (record->event.pressed) {
                 if (mods & MOD_MASK_SHIFT) {  // Is shift held?
                     unregister_mods(MOD_MASK_SHIFT);
@@ -175,6 +182,163 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             break;
+  /* ELLIPS, */
+        case EUMLA:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("\"") "E");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("\"") "e");
+                }
+                return false;
+            }
+            break;
+        /* case EUROS: */
+        /*     if (record->event.pressed) { */
+        /*         if (mods & MOD_MASK_SHIFT) {  // Is shift held? */
+        /*             unregister_mods(MOD_MASK_SHIFT); */
+        /*             SEND_STRING(SS_ALGR("`") "E"); */
+        /*             register_mods(mods);            // Restore mods. */
+        /*         } else { */
+        /*             SEND_STRING(SS_ALGR("`") "e"); */
+        /*         } */
+        /*         return false; */
+        /*     } */
+        /*     break; */
+        case ICIRC:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("^") "E");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("^") "e");
+                }
+                return false;
+            }
+            break;
+        case IUMLA:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("\"") "I");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("\"") "i");
+                }
+                return false;
+            }
+            break;
+        /* case NBSPC: */
+        /*     if (record->event.pressed) { */
+        /*         if (mods & MOD_MASK_SHIFT) {  // Is shift held? */
+        /*             unregister_mods(MOD_MASK_SHIFT); */
+        /*             SEND_STRING(SS_ALGR("\"") "I"); */
+        /*             register_mods(mods);            // Restore mods. */
+        /*         } else { */
+        /*             SEND_STRING(SS_ALGR("\"") "i"); */
+        /*         } */
+        /*         return false; */
+        /*     } */
+        /*     break; */
+        case NTILD:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("n") "N");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("n") "n");
+                }
+                return false;
+            }
+            break;
+        case OCIRC:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("^") "O");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("^") "o");
+                }
+                return false;
+            }
+            break;
+        /* case OELIG: */
+        /*     if (record->event.pressed) { */
+        /*         if (mods & MOD_MASK_SHIFT) {  // Is shift held? */
+        /*             unregister_mods(MOD_MASK_SHIFT); */
+        /*             SEND_STRING(SS_ALGR("^") "O"); */
+        /*             register_mods(mods);            // Restore mods. */
+        /*         } else { */
+        /*             SEND_STRING(SS_ALGR("^") "o"); */
+        /*         } */
+        /*         return false; */
+        /*     } */
+        /*     break; */
+        case OUMLA:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("\"") "O");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("\"") "o");
+                }
+                return false;
+            }
+            break;
+        case UCIRC:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("^") "U");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("^") "u");
+                }
+                return false;
+            }
+            break;
+        case UGRAV:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("`") "U");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("`") "u");
+                }
+                return false;
+            }
+            break;
+        case UUMLA:
+            if (record->event.pressed) {
+                if (mods & MOD_MASK_SHIFT) {  // Is shift held?
+                    unregister_mods(MOD_MASK_SHIFT);
+                    SEND_STRING(SS_ALGR("\"") "U");
+                    register_mods(mods);            // Restore mods.
+                } else {
+                    SEND_STRING(SS_ALGR("\"") "u");
+                }
+                return false;
+            }
+            break;
+        /* case ZWSPC: */
+        /*     if (record->event.pressed) { */
+        /*         if (mods & MOD_MASK_SHIFT) {  // Is shift held? */
+        /*             unregister_mods(MOD_MASK_SHIFT); */
+        /*             SEND_STRING(SS_ALGR("\"") "U"); */
+        /*             register_mods(mods);            // Restore mods. */
+        /*         } else { */
+        /*             SEND_STRING(SS_ALGR("\"") "u"); */
+        /*         } */
+        /*         return false; */
+        /*     } */
+        /*     break; */
     }
     return true;
 };
@@ -196,7 +360,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_QWERTY] = LAYOUT(
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSLS,
-       EGRAVE,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
+        EGRAV,   A_LSH,   S_CTL,   D_ALT,    F_L1,    G_L3,                                        H_L3,    J_L1,   K_ALT,   L_CTL,  SC_RSH, KC_QUOT,
       KC_C_UP,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_ESC,  KC_DEL,   TT(6), KC_CAPS,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_COLN,
                                  _______,   TT(4), KC_LGUI,  KC_SPC, KC_BSPC,   TT(5),  KC_ENT, KC_LGUI,   TT(2), KC_MUTE
     ),
@@ -215,8 +379,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_SYMBOLS] = LAYOUT(
       KC_PSCR, KC_EXLM,   KC_AT, KC_LCBR, KC_RCBR, KC_PIPE,                                     KC_AMPR,    KC_7,    KC_8,    KC_9, KC_PAST,  KC_NUM,
-        ZWSPC, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,    KC_4,    KC_5,    KC_6, KC_PPLS,  KC_INS,
-        NBSPC, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
+      _______, KC_HASH,  KC_DLR, KC_LPRN, KC_RPRN,  KC_GRV,                                     KC_MINS,    KC_4,    KC_5,    KC_6, KC_PPLS,  KC_INS,
+      _______, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, _______, _______, _______, _______, KC_UNDS,    KC_1,    KC_2,    KC_3,  KC_EQL, _______,
                                  _______, _______, _______, _______, _______, _______, _______,    KC_0, _______, _______
     ),
 /*
@@ -252,9 +416,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
      [_FRENCH] = LAYOUT(
-       _______,   UP_AE,   UP_EC,   UP_EA,   UP_EG,  UC_DEG,                                       UP_UC,   UP_UG,   UP_IC,   UP_OC,   UP_OE, UC_NEXT,
-       _______,   UP_AG,   UP_AC,   UP_EU,  UC_EUR, _______,                                     _______,   UP_UU,   UP_IU,   UP_OU, _______, _______,
-       _______,   UP_AU, _______,   UP_CC, _______, _______, _______, _______, _______, _______,   UP_NT, _______, _______,  UC_ELI, _______, _______,
+       _______, _______,   ECIRC,   EACUT,   EGRAV, _______,                                       UCIRC,   UGRAV,   ICIRC,   OCIRC, _______, _______,
+       _______,   AGRAV,   ACIRC,   EUMLA, _______, _______,                                     _______,   UUMLA,   IUMLA,   OUMLA, _______, _______,
+       _______,   AUMLA, _______,   CCEDI, _______, _______, _______, _______, _______, _______,   NTILD, _______, _______, _______, _______, _______,
                                   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
      ),
 /*
